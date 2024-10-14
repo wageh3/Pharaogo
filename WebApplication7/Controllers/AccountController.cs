@@ -58,11 +58,11 @@ namespace WebApplication7.Controllers
 
 				if (result.Succeeded == true)
 				{
-					await _userManager.AddToRoleAsync(userModel, "Visitor");
+                    await _userManager.AddToRoleAsync(userModel, "VISITOR"); // Use uppercase as in the NormalizedName
 
-					//Create Cookie
+                    //Create Cookie
 
-					await signInManager.SignInAsync(userModel, isPersistent: false);
+                    await signInManager.SignInAsync(userModel, isPersistent: false);
 
 
 					return RedirectToAction("Index", "Home");

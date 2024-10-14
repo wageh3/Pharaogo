@@ -14,11 +14,16 @@ namespace WebApplication7.ViewModels
 		[EmailAddress]
 		public string Email { get; set; }
 
-		[DataType(DataType.Password)]
-		[Required]
-		public string Password { get; set; }
 
-		[DataType(DataType.Password)]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Password is required.")]
+        [StringLength(100, ErrorMessage = "The password must be at least {2} characters long.", MinimumLength = 8)]
+        [RegularExpression(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+     ErrorMessage = "The password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.")]
+        public string Password { get; set; }
+
+
+        [DataType(DataType.Password)]
 		[Required]
 		[Compare("Password")]
 		public string confirmPassword { get; set; }
