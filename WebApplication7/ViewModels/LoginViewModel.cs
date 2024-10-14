@@ -2,10 +2,10 @@
 
 namespace WebApplication7.ViewModels
 {
-    public class LoginViewModel
-    {
-    
-        public string ?UserName { get; set; }
+	public class LoginViewModel
+	{
+
+		public string? UserName { get; set; }
 		[Required(ErrorMessage = "Email is required.")]
 		[DataType(DataType.EmailAddress)]
 		public string Email { get; set; }
@@ -13,6 +13,7 @@ namespace WebApplication7.ViewModels
 		[DataType(DataType.Password)]
 		public string Password { get; set; }
 		public bool RememberMe { get; set; }
+
 
 
 	}

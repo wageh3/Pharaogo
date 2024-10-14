@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication7.ViewModels;
 
 namespace WebApplication7.Controllers
 {
-
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -13,12 +11,12 @@ namespace WebApplication7.Controllers
         {
             roleManager = _rolemanager;
         }
-
+        [HttpGet]
         public IActionResult New()
         {
             return View();
         }
-      
+
         [HttpPost]
         public async Task<IActionResult> New(RoleViewModel newRole)
         {

@@ -14,10 +14,8 @@ namespace WebApplication7
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<DepiContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
+            builder.Services.AddDbContext<DepiContext>(options => options.UseSqlServer("Server=.;Database=Depi;Trusted_Connection=True;Encrypt=False;"));
+
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
                 options => options.Password.RequireDigit = true
                 )
@@ -38,9 +36,9 @@ namespace WebApplication7
             app.UseStaticFiles();
 
             app.UseRouting();
-
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
+
 
 
             app.MapControllerRoute(

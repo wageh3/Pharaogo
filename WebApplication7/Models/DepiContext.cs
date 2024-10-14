@@ -21,10 +21,10 @@ namespace WebApplication7.Models
         public DbSet<Review> Review { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            optionsBuilder.UseSqlServer("Server=.;Database=DEPI_DB1;Trusted_Connection=True;TrustServerCertificate=True");
             base.OnConfiguring(optionsBuilder);
         }
-       
+
     }
 }
 
