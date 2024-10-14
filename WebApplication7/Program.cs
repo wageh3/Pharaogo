@@ -3,6 +3,8 @@ using Microsoft.DotNet.Scaffolding.Shared.ProjectModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using WebApplication7.Models;
+using WebApplication7.Repositry.IRepositry;
+using WebApplication7.Repositry;
 
 namespace WebApplication7
 {
@@ -21,7 +23,13 @@ namespace WebApplication7
                 )
                 .AddEntityFrameworkStores<DepiContext>();
 
-
+            builder.Services.AddScoped<IPlace, Place_Repo>();
+            builder.Services.AddScoped<IAdmin, Admin_Repo>();
+            builder.Services.AddScoped<IBooking, Booking_Repo>();
+            builder.Services.AddScoped<IMembership, Membership_Repo>();
+            builder.Services.AddScoped<IPayment, Payment_Repo>();
+            builder.Services.AddScoped<IReview, Review_Repo>();
+            builder.Services.AddScoped<IUser, User_Repo>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -31,6 +39,7 @@ namespace WebApplication7
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -13,8 +13,7 @@ namespace WebApplication7.Models
         public string promotion_Code { get;set; }
         [Display(Name = "Discount Amount :")]
         public int Discount_Amount {  get; set; }
-        [ForeignKey("booking")]
-        public int booking_ID {  get; set; }
-        public Booking booking { get; set; }
+        
+       
     }
 }

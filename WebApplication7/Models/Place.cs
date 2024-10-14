@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication7.Models
 {
@@ -21,9 +22,12 @@ namespace WebApplication7.Models
         public int Place_Price {  get; set; }
         [Display(Name = "Rating :")]
 
-        public int Place_Rating {  get; set; }
-
-        public string Place_Photo { get; set; }
+        public string Place_Rating { get; set; } = "unrated";
+        public string? Description {  get; set; }
+        [Display(Name = "Place photo ")]
+        public string? Place_Photo { get; set; }
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
 
     }
 }
