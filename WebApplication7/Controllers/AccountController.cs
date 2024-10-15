@@ -58,7 +58,7 @@ namespace WebApplication7.Controllers
 
 				if (result.Succeeded == true)
 				{
-                    await _userManager.AddToRoleAsync(userModel, "VISITOR"); // Use uppercase as in the NormalizedName
+                    await _userManager.AddToRoleAsync(userModel, "Visitor"); // Use uppercase as in the NormalizedName
 
                     //Create Cookie
 
@@ -119,45 +119,7 @@ namespace WebApplication7.Controllers
 			// If ModelState is not valid, return the view with errors
 			return View(loginViewModel);
 		}
-		public IActionResult AddAdmin()
-		{
-			return View();
-		}
-
-		[HttpPost]
-		[Authorize(Roles = "Admin")]
-		public async Task<IActionResult> AddAdmin(RegisterViewModel vm)
-		{
-
-			if (ModelState.IsValid)
-			{
-				ApplicationUser userModel = new ApplicationUser();
-				userModel.UserName = vm.UserName;
-				//userModel.Address = vm.Addresss;
-				userModel.PasswordHash = vm.Password;
-				IdentityResult result = await _userManager.CreateAsync(userModel, vm.Password);
-				if (result.Succeeded == true)
-				{
-					//Assign Role
-					await _userManager.AddToRoleAsync(userModel, "Admin");
-					//Create Cookie
-
-					await signInManager.SignInAsync(userModel, isPersistent: false);
-
-
-					return RedirectToAction("Index", "Home");
-
-				}
-				else
-				{
-					foreach (var item in result.Errors)
-					{
-						ModelState.AddModelError("", item.Description);
-					}
-				}
-			}
-			return View(vm);
-		}
+     
 		public async Task<IActionResult> Logout()
 		{
 			await signInManager.SignOutAsync();
