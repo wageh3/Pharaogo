@@ -2,6 +2,7 @@
 using WebApplication7.Models;  // Assuming you're using Entity Framework
 using System.Linq;
 using WebApplication7.Repositry.IRepositry;
+using Microsoft.IdentityModel.Tokens;
 
 public class SearchController : Controller
 {
@@ -16,14 +17,15 @@ public class SearchController : Controller
     [HttpGet]
     public IActionResult Index(string searchQuery)
     {
-        if (string.IsNullOrEmpty(searchQuery))
+         
+        var results = _context.Places.Where(x => x.Place_Name.Contains(searchQuery)).ToList();
+        if (string.IsNullOrEmpty(searchQuery) || results==null || results.IsNullOrEmpty())
         {
-            return View(); // Return the default view if no search query is provided
+            return View("NotFound"); // Return the default view if no search query is provided
         }
 
         // Query the database based on the search input
-        Place results = new Place();
-        results = _context.Places.FirstOrDefault(x => x.Place_Name == searchQuery);
+        
         return View(results); // Pass the results to the view
     }
 }

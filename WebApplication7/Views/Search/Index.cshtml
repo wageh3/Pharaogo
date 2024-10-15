@@ -1,25 +1,140 @@
-﻿@model Place
-<div class="card" style="width: 65rem;">
-    <h3 class="card-header">@Model.Place_Name</h3>
-    <div>
-      @*   @if (Model. == null || Model.imageSrc == "")
-        {
-            <img src="\Images\no-image-found.jpg" alt="NOImage" width="100%" height="100%" style="padding: 0; margin: 0; border: none;" />
+﻿@model List<Place>
+<section class="hotel-listings ">
+    @foreach (var item in Model)
+    {
+
+        <!-- Card 1 -->
+        <div class="hotel-card ">
+            <img src="/Images/HomePage.jpeg" alt="El Lotus Building">
+            <div class="hotel-info">
+                <h3>@item.Place_Name</h3>
+                <p class="rating">Rating : @item.Place_Rating</p>
+                <p><span class="new-price"> Price : @item.Place_Price EGP</span></p>
+                <a href="/Home/GetPlace/@item.Place_Id">
+                    <button type="button" class="btn btn-primary">View more !</button>
+                </a>
+            </div>
+        </div>
+    }
+</section>
+<style>
+    .hero {
+        position: relative;
+        height: 60vh;
+        background-image: url('/Images/HomePage.jpeg'); /* Replace with your image URL */
+        background-size: cover;
+        background-position: center;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Dark overlay to make text stand out */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .content h1 {
+        color: white;
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .content p {
+        color: white;
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .cta-button {
+        padding: 1rem 2rem;
+        background-color: #ff6700;
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        border-radius: 30px;
+    }
+
+        .cta-button:hover {
+            background-color: #ff4500;
         }
-        else
-        {
-            <img src="@Model.imageSrc" alt="NOImage" width="100%" height="100%" style="padding: 0; margin: 0; border: none;" />
-        } *@
-    </div>
-    <div class="card-body">
-        <h4 class="card-title">Description</h4>
-        <p class="card-text">@Model.Description</p>
-    </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">Price : $@Model.Place_Price </li>
-        <li class="list-group-item">Type : @Model.Place_Type</li>
-        <li class="list-group-item">City :  @Model.Place_City</li>
-        <li class="list-group-item">place Rating : @Model.Place_Rating</li>
-    </ul>
-   
-</div>
+
+    /* Footer navigation */
+    .footer-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: #222;
+        padding: 1rem 0;
+    }
+
+    .nav-item {
+        text-align: center;
+        color: white;
+        text-decoration: none;
+    }
+
+    .nav-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .nav-label {
+        font-size: 1rem;
+    }
+
+    .hotel-listings {
+        display: flex; /* Use flexbox for horizontal layout */
+        flex-wrap: wrap; /* Allow wrapping to the next line if space runs out */
+        gap: 20px; /* Space between cards */
+        padding: 20px; /* Padding around the section */
+        justify-content: center; /* Center the cards in the container */
+    }
+
+    .hotel-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        text-align: center;
+        flex: 1 1 300px; /* Allow cards to grow, shrink, and have a base width of 300px */
+        min-width: 250px; /* Minimum width for each card */
+    }
+
+        .hotel-card img {
+            width: 100%;
+            height: 150px; /* Fixed height for the image */
+            object-fit: cover; /* Cover the space without distortion */
+        }
+
+    .hotel-info {
+        padding: 15px; /* Padding inside the hotel info section */
+    }
+
+        .hotel-info h3 {
+            font-size: 18px; /* Font size for the place name */
+            margin-bottom: 8px; /* Space below the title */
+        }
+
+        .hotel-info .rating {
+            font-size: 14px; /* Font size for the rating */
+            color: #2c9c1a; /* Color for the rating */
+        }
+
+    .new-price {
+        font-weight: bold; /* Bold style for the price */
+        color: #000; /* Color for the price */
+        font-size: 16px; /* Font size for the price */
+    }
+
+    .btn:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
+
+</style>

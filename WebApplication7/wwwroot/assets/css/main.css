@@ -1142,14 +1142,15 @@ section,
 }
 
     .call-to-action .container {
-        padding: 80px;
+        padding-top: 80px;
+        padding-top: 80px;
         background: color-mix(in srgb, var(--default-color), transparent 96%);
         border-radius: 15px;
     }
 
 @media (max-width: 992px) {
     .call-to-action .container {
-        padding: 60px;
+        padding-top: 80px;
     }
 }
 
