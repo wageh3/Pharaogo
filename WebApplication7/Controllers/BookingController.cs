@@ -14,16 +14,16 @@ public class BookingController : Controller
         BookingViewModel bookingViewModel = new BookingViewModel();
 
         // If placeId is provided, fetch the place details from the database
-       
-        
-        Place place = dbContext.Places.FirstOrDefault(x=>x.Place_Id==Id);
-          
+
+
+        Place place = dbContext.Places.FirstOrDefault(x => x.Place_Id == Id);
+
         bookingViewModel.PlaceID = place.Place_Id;
         bookingViewModel.PlaceName = place.Place_Name;
         bookingViewModel.dbimage = place.dbimage; // Set actual image URL
         bookingViewModel.Description = place.Description;
         bookingViewModel.TotalAmount = place.Place_Price; // Set total amount based on the place price
-       
+
         return View(bookingViewModel);
     }
 
@@ -43,39 +43,32 @@ public class BookingController : Controller
 
     // GET: Booking/Payment
     [HttpGet]
-    public IActionResult Payment(int id,int numberofguests,string pormotioncode)
+    public IActionResult Payment(int id, int numberofguests, string PromotionCode)
     {
         PaymentViewModel pp = new PaymentViewModel();
         Place place = dbContext.Places.FirstOrDefault(x => x.Place_Id == id);
         // Create a payment view model to pass to the payment view
-        if (ModelState.IsValid) 
-        { 
-                if (pormotioncode!= null || pormotioncode=="") 
-                {
-                    var Result = dbContext.Promotions.FirstOrDefault(x=>x.promotion_Code==pormotioncode);
-                    pp.TotalAmount = place.Place_Price*numberofguests;
-                    pp.TotalAmountAfterDiss = ((place.Place_Price)-((Result.Discount_Amount*place.Place_Price)/100))*numberofguests;
-                    pp.PaymentCode = GeneratePaymentCode();// Generate a fake payment code
-                    pp.NumberOfGuests = numberofguests;
-                }
+        if (ModelState.IsValid)
+        {
+            if (PromotionCode != null || PromotionCode == "")
+            {
+                var Result = dbContext.Promotions.FirstOrDefault(x => x.promotion_Code == PromotionCode);
+                pp.TotalAmount = place.Place_Price * numberofguests;
+                pp.TotalAmountAfterDiss = ((place.Place_Price) - ((Result.Discount_Amount * place.Place_Price) / 100)) * numberofguests;
+                pp.PaymentCode = GeneratePaymentCode();// Generate a fake payment code
+                pp.NumberOfGuests = numberofguests;
+            }
         }
 
-        return View("Payment",pp); // Pass the payment model to the Payment view
+        return View("Payment", pp); // Pass the payment model to the Payment view
     }
 
     // POST: Booking/PaymentConfirmed
     [HttpPost]
-    public IActionResult PaymentConfirmed(PaymentViewModel model)
-    {
-        // Simulate payment confirmation logic
-        // Here you would normally handle the payment processing
-
-        // Simulate saving the booking (you would normally get booking details from the model)
-        // Assuming you have a way to identify the booking (e.g., from a hidden field)
-
-        TempData["AlertMessage"] = $"Payment successful! Amount: {model.TotalAmount}, Payment Code: {model.PaymentCode}";
-
-        return RedirectToAction("Success"); // Redirect to a success page
+    public IActionResult PaymentConfirmed(int TotalAmountAfterDiss)
+    { 
+        int x = TotalAmountAfterDiss;
+        return View("Success",x); // Redirect to a success page
     }
 
     private string GeneratePaymentCode()
@@ -84,9 +77,6 @@ public class BookingController : Controller
         return Guid.NewGuid().ToString().Substring(0, 8).ToUpper(); // Example code
     }
 
-    // Add your success method if you need one
-    public IActionResult Success()
-    {
-        return View();
-    }
+    
+   
 }

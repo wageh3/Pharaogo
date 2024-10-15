@@ -18,7 +18,8 @@
         </div>
     </div>
 
-    <form asp-action="Payment/@Model.PlaceID/@Model.NumberOfGuests/@Model.PromotionCode" method="get" class="mt-4">
+    <form asp-action="Payment" asp-route-id="@Model.PlaceID" asp-route-numberOfGuests="@Model.NumberOfGuests" asp-route-PromotionCode="@Model.PromotionCode" method="get" class="mt-4">
+
         <div class="form-group">
             <label asp-for="CheckInDate" class="control-label"></label>
             <input asp-for="CheckInDate" type="date" class="form-control" required />

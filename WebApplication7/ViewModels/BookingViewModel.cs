@@ -42,9 +42,6 @@ namespace WebApplication7.ViewModels
         [Required]
         [Display(Name = "Total Amount")]
         public decimal TotalAmount { get; set; } // Correct property name
-
-        public int Booking_Id { get; set; } // This will hold the booking ID
-
         public int BookingId { get; set; } // This will hold the booking ID
     }
 }
