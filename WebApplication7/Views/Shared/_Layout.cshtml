@@ -48,16 +48,16 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#hero" class="active">Home<br></a></li>
+                    <li><a href="/Home/Index" class="active">Home<br></a></li>
 
                     @* <li><a href="#team">Team</a></li> *@
                     @* <li><a href="blog.html">Blog</a></li> *@
                     <li class="dropdown">
                         <a href="#"><span>Places</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            <li><a href="#">Hotels</a></li>
+                            <li><a href=" /Home/Hotels">Hotels</a></li>
 
-                            <li><a href="#">Musuems</a></li>
+                            <li><a href=" /Home/Museums">Musuems</a></li>
 
                         </ul>
                     </li>
@@ -75,7 +75,10 @@
             </nav>
 
 
-            <form class="d-flex"> <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search"> <button class="btn btn-outline-success" type="submit">Search</button> </form>
+            <form class="d-flex" asp-controller="Search" asp-action="Index" method="get">
+                <input class="form-control mr-2" type="search" name="searchQuery" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
 
 
         </div>
@@ -115,9 +118,9 @@
                     <div class="col-lg-2 col-md-3 footer-links">
                         <h4>Useful Links</h4>
                         <ul>
-                            <li><a href="#">Home</a></li>
+                            <li><a href="/Home/Index">Home</a></li>
                             <li><a href="#">About us</a></li>
-                            <li><a href="#">Places</a></li>
+                            <li><a href="/Home/Index">Places</a></li>
 
 
                         </ul>
@@ -126,8 +129,8 @@
                     <div class="col-lg-2 col-md-3 footer-links">
                         <h4>Our Services</h4>
                         <ul>
-                            <li><a href="#">Museums</a></li>
-                            <li><a href="#">Hotels</a></li>
+                            <li><a href="/Home/Museums">Museums</a></li>
+                            <li><a href="/Home/Hotels">Hotels</a></li>
 
                         </ul>
                     </div>
@@ -169,7 +172,7 @@
                 </div>
 
                 <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
-                    <a href="https://github.com/MohamedRamadan32325/DEPI"><i class="bi bi-github"></i></a>
+                    <a href="https://github.com/MohamedRamadan32325/DepiProjectFInal.git"><i class="bi bi-github"></i></a>
 
                 </div>
 

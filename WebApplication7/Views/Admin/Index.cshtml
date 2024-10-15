@@ -1,0 +1,35 @@
+﻿@model List<Place>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Name</th>
+            <th scope="col">City</th>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
+            <th scope="col">Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var place in Model)
+            {
+                <tr>
+                    <td scope="row">@place.Place_Id</td>
+                    <td scope="row">@place.Place_Name</td>
+                    <td scope="row">@place.Place_City</td>
+                    <td scope="row">@place.Place_Type</td>
+                    <td scope="row">$@place.Place_Price</td>
+                    <td scope="row">@place.Place_Rating</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@place.Place_Id" class="btn btn-link">View Details</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a class="btn btn-dark" type="button" asp-action="AddPlace">Add Place</a>
+    <a class="btn btn-dark" type="button" asp-action="Index" asp-controller="Promotion">Promotions</a>
+</div>

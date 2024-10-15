@@ -1,0 +1,28 @@
+﻿@model Place
+<div class="card" style="width: 100rem;">
+    <h3 class="card-header">@Model.Place_Name</h3>
+    <div>
+        @if (Model.imageSrc == null || Model.imageSrc == "")
+        {
+            <img src="\Images\no-image-found.jpg" alt="NOImage" width="100%" height="100%" style="padding: 0; margin: 0; border: none;" />
+        }
+        else
+        {
+            <img src="@Model.imageSrc" alt="NOImage" width="100%" height="100%" style="padding: 0; margin: 0; border: none;" />
+        }
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Description</h4>
+        <p class="card-text">@Model.Description</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Price : $@Model.Place_Price </li>
+        <li class="list-group-item">Type : @Model.Place_Type</li>
+        <li class="list-group-item">City :  @Model.Place_City</li>
+        <li class="list-group-item">place Rating : @Model.Place_Rating</li>
+    </ul>
+    <div class="card-body">
+        <a class="card-link" asp-action="Edit" asp-route-id="@Model.Place_Id">Edit</a>
+        <a class="card-link" asp-action="Delete" asp-route-id="@Model.Place_Id">Delete</a>
+    </div>
+</div>

@@ -30,6 +30,7 @@ namespace WebApplication7
             builder.Services.AddScoped<IPayment, Payment_Repo>();
             builder.Services.AddScoped<IReview, Review_Repo>();
             builder.Services.AddScoped<IUser, User_Repo>();
+            builder.Services.AddScoped<IPromotion, Promotion_Repo>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
