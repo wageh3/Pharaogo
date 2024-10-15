@@ -1,0 +1,13 @@
+﻿@model WebApplication7.ViewModels.PaymentViewModel
+
+<h2>Payment</h2>
+<p>Total Amount: @Model.TotalAmount</p>
+<p>Number Of Guests: @Model.NumberOfGuests</p>
+<p>Total Amount After Discount: @Model.TotalAmountAfterDiss</p>
+<p>Payment Code: @Model.PaymentCode</p>
+
+<form asp-action="PaymentConfirmed" method="post">
+    <input type="hidden" asp-for="TotalAmount" />
+    @* <input type="hidden" asp-for="PaymentCode" /> *@
+    <button type="submit">Confirm Payment</button>
+</form>

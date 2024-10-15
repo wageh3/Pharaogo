@@ -22,5 +22,8 @@ namespace WebApplication7.Models
         public int total_amount { get; set; }
         [Display(Name = "Number of dayes :")]
         public int? total_Dayes { get; set; }
+
+        public int? Total_Days { get; set; }
+
     }
 }

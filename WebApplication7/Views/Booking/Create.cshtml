@@ -1,0 +1,42 @@
+﻿@model WebApplication7.ViewModels.BookingViewModel
+
+<div class="container mt-5">
+    <h2 class="text-center">Book Your Stay at @Model.PlaceName</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            
+            @if (Model.imageSrc == null || Model.imageSrc == "")
+            {
+                <img src="\Images\no-image-found.jpg" alt="NOImage" />
+            }
+            else
+            {
+                <img src="@Model.imageSrc" alt="NOImage" />
+            }
+            <p class="text-center">@Model.Description</p>
+        </div>
+    </div>
+
+    <form asp-action="Payment/@Model.PlaceID/@Model.NumberOfGuests/@Model.PromotionCode" method="get" class="mt-4">
+        <div class="form-group">
+            <label asp-for="CheckInDate" class="control-label"></label>
+            <input asp-for="CheckInDate" type="date" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="CheckOutDate" class="control-label"></label>
+            <input asp-for="CheckOutDate" type="date" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="NumberOfGuests" class="control-label"></label>
+            <input asp-for="NumberOfGuests" type="number" class="form-control" min="1" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="PromotionCode" class="control-label"></label>
+            <input asp-for="PromotionCode" class="form-control" />
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Book Now</button>
+        </div>
+    </form>
+</div>
