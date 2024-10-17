@@ -31,10 +31,19 @@ namespace WebApplication7.Controllers
         public IActionResult Index()
         {
 
-			List<Place> p = _home.GetAll();
+			var p = _home.GetAll();
 			return View(p);
 		}
-        
+        public IActionResult Header_Museums()
+        {
+
+            return PartialView("Places", _home.GetAllMuseum());
+        }public IActionResult Header_Hotels()
+        {
+
+            return PartialView("Places", _home.GetAllHotels());
+        }
+
         public IActionResult GetPlace(int id)
         {
             PlaceViewModel p = new PlaceViewModel();
@@ -43,7 +52,7 @@ namespace WebApplication7.Controllers
         }
         public IActionResult Museums() {
           
-            return PartialView("Details",_home.GetAllMuseum());
+            return PartialView("Details", _home.GetAllMuseum());
         }
         public IActionResult Hotels() {
           

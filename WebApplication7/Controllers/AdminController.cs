@@ -101,11 +101,11 @@ namespace DEPI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SaveEdit(Place updatedPlace)
+        public IActionResult SaveEdit(PlaceViewModel updatedPlace)
         {
             if (ModelState.IsValid)
             {
-                var existingPlace = _placeRepository.Get(updatedPlace.Place_Id);
+                var existingPlace = _placeRepository.Get(updatedPlace.SpecificPlace.Place_Id);
                 if (existingPlace == null)
                 {
                     return NotFound();

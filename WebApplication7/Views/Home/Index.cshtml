@@ -1,6 +1,6 @@
 ﻿@using WebApplication7.Repositry;
 @using WebApplication7.Repositry.IRepositry;
-@model List<Place>
+@model WebApplication7.ViewModels.PlaceViewModel
 @{
 	ViewData["Title"] = "Home Page";
 }
@@ -63,8 +63,38 @@
         
 
     </nav>
+
     @* <section class="hotel-listings "> *@
         <div id="PlaceDetails">
+        <section class="hotel-listings ">
+
+            @foreach (var item in Model.RelatedPlaces)
+            {
+
+                <!-- Card 1 -->
+                <form asp-action="GetPlace" asp-controller="Home" asp-route-id="@item.Place_Id" method="get">
+                    <div class="hotel-card ">
+                        @if (item.imageSrc == null || item.imageSrc == "")
+                        {
+                            <img src="\Images\no-image-found.jpg" alt="NOImage" />
+                        }
+                        else
+                        {
+                            <img src="@item.imageSrc" alt="NOImage" />
+                        }
+                        <div class="hotel-info">
+                            <h3>@item.Place_Name</h3>
+                            <p class="rating">Rating : @item.Place_Rating</p>
+                            <p><span class="new-price"> Price : @item.Place_Price EGP</span></p>
+
+                            <button type="submit" class="btn btn-primary">View more !</button>
+
+                        </div>
+                    </div>
+                </form>
+            }
+
+        </section>
 
         </div>
     @* </section> *@
@@ -88,7 +118,7 @@
             });
         }
         window.onload = function () {
-            GetData('Hotels');
+            GetData('_PlacesPartial');
         };
      
     </script>

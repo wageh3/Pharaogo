@@ -11,10 +11,11 @@ namespace WebApplication7.Repositry
         {
             this._context = _context;
         }
-        public List<Place> GetAll()
+        public PlaceViewModel GetAll()
         {
-            return _context.Places.ToList();
-
+            var ans= new PlaceViewModel();
+            ans.RelatedPlaces = _context.Places.ToList();
+            return ans;
         }
         public PlaceViewModel GetAllMuseum()
         {
@@ -52,26 +53,26 @@ namespace WebApplication7.Repositry
              Save();
         }
 
-        public void Edit(Place place)
+        public void Edit(PlaceViewModel place)
         {
-            var existingPlace = _context.Places.Find(place.Place_Id);
+            var existingPlace = _context.Places.Find(place.SpecificPlace.Place_Id);
             if (existingPlace != null)
             {
-                existingPlace.Place_Name = place.Place_Name;
-                existingPlace.Place_Type = place.Place_Type;
-                existingPlace.Place_City = place.Place_City;
-                existingPlace.Place_Price = place.Place_Price;
-                existingPlace.Place_Rating = place.Place_Rating;
-                existingPlace.Description = place.Description;
-                if (place.clientFile != null)
+                existingPlace.Place_Name = place.SpecificPlace.Place_Name;
+                existingPlace.Place_Type = place.SpecificPlace.Place_Type;
+                existingPlace.Place_City = place.SpecificPlace.Place_City;
+                existingPlace.Place_Price = place.SpecificPlace.Place_Price;
+                existingPlace.Place_Rating = place.SpecificPlace.Place_Rating;
+                existingPlace.Description = place.SpecificPlace.Description;
+                if (place.SpecificPlace.clientFile != null)
                 {
                     MemoryStream stream = new MemoryStream();
-                    place.clientFile.CopyTo(stream);
+                    place.SpecificPlace.clientFile.CopyTo(stream);
                     existingPlace.dbimage = stream.ToArray();
                 }
                 else
                 {
-                    place.dbimage = existingPlace.dbimage;
+                    place.SpecificPlace.dbimage = existingPlace.dbimage;
                 }
                 Save();
             }

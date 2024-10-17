@@ -11,7 +11,9 @@ namespace WebApplication7.Models
         [Required]
 
         public string promotion_Code { get;set; }
-        [Display(Name = "Discount Amount :")]
+        [Display(Name = "Discount Rate :")]
+        [Required]
+        [Range(0,100)]
         public int Discount_Amount {  get; set; }
         
        

@@ -5,7 +5,15 @@
 
         <!-- Card 1 -->
         <div class="hotel-card ">
-            <img src="/Images/HomePage.jpeg" alt="El Lotus Building">
+
+            @if (item.imageSrc == null || item.imageSrc == "")
+            {
+                <img src="\Images\no-image-found.jpg" alt="NOImage" />
+            }
+            else
+            {
+                <img src="@item.imageSrc" alt="NOImage" />
+            }
             <div class="hotel-info">
                 <h3>@item.Place_Name</h3>
                 <p class="rating">Rating : @item.Place_Rating</p>

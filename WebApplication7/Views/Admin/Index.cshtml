@@ -1,4 +1,4 @@
-﻿@model List<Place>
+﻿@model WebApplication7.ViewModels.PlaceViewModel
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         @{
-            foreach (var place in Model)
+            foreach (var place in Model.RelatedPlaces)
             {
                 <tr>
                     <td scope="row">@place.Place_Id</td>
