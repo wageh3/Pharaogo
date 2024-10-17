@@ -1,0 +1,112 @@
+﻿@model decimal
+<div class="wrapper">
+    <div class="payment-container">
+        <h2>Credit Card Payment</h2>
+        <form asp-action="Success" method="POST">
+            <div class="form-group">
+                <label for="name">Cardholder Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cardnumber">Card Number</label>
+                <input type="text" id="cardnumber" name="cardnumber" placeholder="1234 5678 9012 3456" required maxlength="19">
+            </div>
+
+            <div class="form-group inline-group">
+                <div>
+                    <label for="expirationdate">Expiration Date</label>
+                    <input type="text" id="expirationdate" name="expirationdate" placeholder="MM/YY" required maxlength="5">
+                </div>
+
+                <div>
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="123" required maxlength="3">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="text" id="amount" name="amount" placeholder="@Model" readonly>
+            </div>
+
+            <button type="submit" class="pay-btn">Pay Now</button>
+        </form>
+    </div>
+</div>
+
+
+<style>
+    /* Wrapper to center the container */
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .payment-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+        input:focus {
+            border-color: #007bff;
+        }
+
+    .inline-group {
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .inline-group > div {
+            width: 48%;
+        }
+
+    .pay-btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .pay-btn:hover {
+            background-color: #0056b3;
+        }
+</style>

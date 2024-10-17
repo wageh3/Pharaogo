@@ -19,7 +19,7 @@
     </div>
 
     <form asp-action="Payment" asp-route-id="@Model.PlaceID" asp-route-numberOfGuests="@Model.NumberOfGuests" asp-route-PromotionCode="@Model.PromotionCode" method="get" class="mt-4">
-
+        @if(Model.PlaceType=="Hotel"){
         <div class="form-group">
             <label asp-for="CheckInDate" class="control-label"></label>
             <input asp-for="CheckInDate" type="date" class="form-control" required />
@@ -28,13 +28,17 @@
             <label asp-for="CheckOutDate" class="control-label"></label>
             <input asp-for="CheckOutDate" type="date" class="form-control" required />
         </div>
+        }
         <div class="form-group">
             <label asp-for="NumberOfGuests" class="control-label"></label>
             <input asp-for="NumberOfGuests" type="number" class="form-control" min="1" required />
         </div>
         <div class="form-group">
+            
+
             <label asp-for="PromotionCode" class="control-label"></label>
             <input asp-for="PromotionCode" class="form-control" />
+            <span asp-validation-for="PromotionCode" class="text-danger"></span>
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Book Now</button>

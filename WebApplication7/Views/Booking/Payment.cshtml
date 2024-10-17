@@ -6,7 +6,7 @@
 <p>Total Amount After Discount: @Model.TotalAmountAfterDiss</p>
 <p>Payment Code: @Model.PaymentCode</p>
 
-<form asp-action="PaymentConfirmed" asp-route-TotalAmountAfterDiss="@Model.TotalAmountAfterDiss" method="post">
+<form asp-action="Index" asp-controller="Payment" asp-route-price="@Model.TotalAmountAfterDiss" method="post">
     <input type="hidden" asp-for="TotalAmount" />
     @* <input type="hidden" asp-for="PaymentCode" /> *@
     <button type="submit">Confirm Payment</button>

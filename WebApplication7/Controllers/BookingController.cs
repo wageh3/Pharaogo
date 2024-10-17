@@ -22,18 +22,19 @@ public class BookingController : Controller
         {
             return NotFound("Place not found");
         }
-
+       
         bookingViewModel.PlaceID = place.Place_Id;
         bookingViewModel.PlaceName = place.Place_Name;
         bookingViewModel.dbimage = place.dbimage;
         bookingViewModel.Description = place.Description;
         bookingViewModel.TotalAmount = place.Place_Price;
+        bookingViewModel.PlaceType = place.Place_Type;
 
         return View(bookingViewModel);
     }
 
     [HttpPost]
-    public IActionResult Create(BookingViewModel bookingViewModel)
+    public IActionResult Create(BookingViewModel bookingViewModel,string promotioncode)
     {
         if (ModelState.IsValid)
         {
@@ -55,31 +56,53 @@ public class BookingController : Controller
         }
 
         pp.TotalAmount = place.Place_Price * numberofguests;
-
+        if (string.IsNullOrEmpty(PromotionCode))
+        {
+            pp.TotalAmountAfterDiss = pp.TotalAmount;
+            return View(pp);
+        }
         if (!string.IsNullOrEmpty(PromotionCode))
         {
             var promo = dbContext.Promotions.FirstOrDefault(x => x.promotion_Code == PromotionCode);
+
             if (promo != null)
             {
-                pp.TotalAmountAfterDiss = ((place.Place_Price - (promo.Discount_Amount * place.Place_Price) / 100) * numberofguests);
+                pp.TotalAmountAfterDiss = (place.Place_Price - (promo.Discount_Amount * place.Place_Price) / 100) * numberofguests;
             }
             else
             {
-                pp.TotalAmountAfterDiss = pp.TotalAmount;
-                ModelState.AddModelError("", "Invalid promotion code.");
+                // Add ModelState error if the promotion code is invalid
+                ModelState.AddModelError("PromotionCode", "Invalid promotion code.");
+                pp.TotalAmountAfterDiss = pp.TotalAmount; // No discount applied
             }
         }
         else
         {
-            pp.TotalAmountAfterDiss = pp.TotalAmount;
+            pp.TotalAmountAfterDiss = pp.TotalAmount; // No discount applied
         }
 
         pp.PaymentCode = GeneratePaymentCode();
         pp.NumberOfGuests = numberofguests;
 
+        // Check if the ModelState is valid
         if (!ModelState.IsValid)
         {
-            return View("Payment", pp);
+            BookingViewModel bookingViewModel = new BookingViewModel();
+           
+
+            if (place == null)
+            {
+                return NotFound("Place not found");
+            }
+
+            bookingViewModel.PlaceID = place.Place_Id;
+            bookingViewModel.PlaceName = place.Place_Name;
+            bookingViewModel.dbimage = place.dbimage;
+            bookingViewModel.Description = place.Description;
+            bookingViewModel.TotalAmount = place.Place_Price;
+            bookingViewModel.PlaceType = place.Place_Type;
+
+            return View("Create",bookingViewModel);
         }
 
         return View(pp);

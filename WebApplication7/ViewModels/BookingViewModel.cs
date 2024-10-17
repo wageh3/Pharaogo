@@ -5,6 +5,7 @@ namespace WebApplication7.ViewModels
     public class BookingViewModel
     {
         public int PlaceID { get; set; }  // Place ID (can be optional)
+        public string PlaceType { get; set; } 
         public string PlaceName { get; set; } = "Default Place";  // Default place name if no place is selected
         public byte[]? dbimage { get; set; }
         public string? imageSrc
