@@ -16,11 +16,12 @@ namespace WebApplication7.Controllers
     public class UserController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
-
+        private readonly User_Repo user_repo;
+        private readonly DepiContext dbContext;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        User_Repo user_repo = new User_Repo();
-        DepiContext dbContext = new DepiContext();
+        
+        
 
         public UserController(UserManager<ApplicationUser> _userManager, SignInManager<ApplicationUser> _signInManager, IWebHostEnvironment webHostEnvironment, DepiContext context)
         {
@@ -28,6 +29,7 @@ namespace WebApplication7.Controllers
             signInManager = _signInManager;
             _webHostEnvironment = webHostEnvironment;
             dbContext = context;
+            user_repo = new User_Repo(context);
         }
 
         public IActionResult Edit()

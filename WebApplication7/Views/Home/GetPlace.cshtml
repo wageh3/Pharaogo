@@ -1,26 +1,26 @@
-﻿@model WebApplication7.Models.Place
+﻿@model WebApplication7.ViewModels.PlaceViewModel
 
 @{
     ViewData["Title"] = "GetPlace";
 }
 <div class="ad-container">
     <div class="text-container">
-        <h1>@Model.Place_Name</h1>
-        <h3>@Model.Place_City</h3>
-        <p>@Model.Description</p>
-        <p>@Model.Place_Rating</p>
-        <p> @Model.Place_Price EGP</p>
-        <a href="/Booking/Create/@Model.Place_Id" class="cta-button">Book Now</a>
+        <h1>@Model.SpecificPlace.Place_Name</h1>
+        <h3>@Model.SpecificPlace.Place_City</h3>
+        <p>@Model.SpecificPlace.Description</p>
+        <p>@Model.SpecificPlace.Place_Rating</p>
+        <p> @Model.SpecificPlace.Place_Price EGP</p>
+        <a href="/Booking/Create/@Model.SpecificPlace.Place_Id" class="cta-button">Book Now</a>
     </div>
     <div class="image-container">
         
-            @if (Model.imageSrc == null || Model.imageSrc == "")
+            @if (Model.SpecificPlace.imageSrc == null || Model.SpecificPlace.imageSrc == "")
             {
                 <img src="\Images\no-image-found.jpg" alt="NOImage" />
             }
             else
             {
-                <img src="@Model.imageSrc" alt="NOImage" />
+                <img src="@Model.SpecificPlace.imageSrc" alt="NOImage" />
             }
         
     </div>
@@ -30,6 +30,23 @@
     
     <a asp-action="Index">Back to List</a>
 </div>
+<h3>People Reviews</h3>
+@foreach (var item in Model.review)
+{
+    <p>@item.Comment</p>    
+}
+
+<form asp-action="GetUserId" asp-route-PlaceId="@Model.SpecificPlace.Place_Id" asp-route-Review="@Model.Review" class="">
+    <div class="form-group">
+        <label asp-for="Review">Add Your Review</label>
+        <textarea asp-for="Review" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="cta-button">Send Review</button>
+</form>
+
+
+<h3>Places You Might like</h3>
+<partial name="_MuseumPartial" model="Model"></partial>
 <style>
 
 
@@ -79,4 +96,50 @@
     max-width:350px;
     border-radius: 10px;
 }
+
+ 
+.hotel-listings {
+    display: flex; /* Use flexbox for horizontal layout */
+    flex-wrap: wrap; /* Allow wrapping to the next line if space runs out */
+    gap: 20px; /* Space between cards */
+    padding: 20px; /* Padding around the section */
+    justify-content: center; /* Center the cards in the container */
+}
+
+.hotel-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    flex: 1 1 300px; /* Allow cards to grow, shrink, and have a base width of 300px */
+    min-width: 250px; /* Minimum width for each card */
+}
+
+    .hotel-card img {
+        width: 100%;
+        height: 150px; /* Fixed height for the image */
+        object-fit: cover; /* Cover the space without distortion */
+    }
+
+.hotel-info {
+    padding: 15px; /* Padding inside the hotel info section */
+}
+
+    .hotel-info h3 {
+        font-size: 18px; /* Font size for the place name */
+        margin-bottom: 8px; /* Space below the title */
+    }
+
+    .hotel-info .rating {
+        font-size: 14px; /* Font size for the rating */
+        color: #2c9c1a; /* Color for the rating */
+    }
+
+    
+
+    
+
+
+
 </style>

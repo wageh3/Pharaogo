@@ -16,7 +16,8 @@ namespace WebApplication7
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<DepiContext>(options => options.UseSqlServer("Server=.\\MSSQLSERVERR;Database=Depi;Trusted_Connection=True;Encrypt=False;"));
+            builder.Services.AddDbContext<DepiContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DepiConnection")));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
                 options => options.Password.RequireDigit = true
@@ -31,6 +32,8 @@ namespace WebApplication7
             builder.Services.AddScoped<IReview, Review_Repo>();
             builder.Services.AddScoped<IUser, User_Repo>();
             builder.Services.AddScoped<IPromotion, Promotion_Repo>();
+            //builder.Services.AddScoped<Ico, Promotion_Repo>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

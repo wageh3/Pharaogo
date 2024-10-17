@@ -1,25 +1,25 @@
-﻿@model Place
+﻿@model WebApplication7.ViewModels.PlaceViewModel
 <div class="ad-container">
     <div class="text-container">
-        <h1>@Model.Place_Name</h1>
-        <h3>@Model.Place_City</h3>
-        <p>@Model.Description</p>
-        <p>@Model.Place_Rating</p>
-        <p> @Model.Place_Price EGP</p>
+        <h1>@Model.SpecificPlace.Place_Name</h1>
+        <h3>@Model.SpecificPlace.Place_City</h3>
+        <p>@Model.SpecificPlace.Description</p>
+        <p>@Model.SpecificPlace.Place_Rating</p>
+        <p> @Model.SpecificPlace.Place_Price EGP</p>
         <div class="card-body">
-            <a asp-action="Edit" asp-route-id="@Model.Place_Id" class="cta-button">Edit</a>
-            <a asp-action="Delete" asp-route-id="@Model.Place_Id" class="cta-button">Delete</a>
+            <a asp-action="Edit" asp-route-id="@Model.SpecificPlace.Place_Id" class="cta-button">Edit</a>
+            <a asp-action="Delete" asp-route-id="@Model.SpecificPlace.Place_Id" class="cta-button">Delete</a>
         </div>
     </div>
     <div class="image-container">
 
-        @if (Model.imageSrc == null || Model.imageSrc == "")
+        @if (Model.SpecificPlace.imageSrc == null || Model.SpecificPlace.imageSrc == "")
         {
             <img src="\Images\no-image-found.jpg" alt="NOImage" />
         }
         else
         {
-            <img src="@Model.imageSrc" alt="NOImage" />
+            <img src="@Model.SpecificPlace.imageSrc" alt="NOImage" />
         }
 
     </div>

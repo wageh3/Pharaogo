@@ -8,6 +8,10 @@
 <!doctype html>
 <body >
     <section class="hero">
+        <video autoplay muted loop playsinline>
+            <source src="/Videos/Let s Go - Egypt A Beautiful Destinations Original.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <div class="overlay" >
             <div class="content" >
                 @if (TempData["SuccessMessage"] != null)
@@ -44,43 +48,51 @@
         </div>
     </section>
     <nav class="footer-nav">
-        <a href="/Home/Hotels" class="nav-item">
-            <span class="nav-icon">🏨</span>
-            <span class="nav-label">Hotels</span>
-        </a>
-        <a href="/Home/Museums" class="nav-item" onclick="showMuseumInfo()">
-            <span class="nav-icon">🏛️</span>
+        
+        
+            <a href="#" onclick="GetData('Hotels')" class="nav-item">
+                <span class="nav-icon">
+                    <img src="/Images/hotel.png" alt="Alternate Text" style="width: 24px; height: 24px; object-fit: contain; display: inline-block; " />
+                </span>
+                <span class="nav-label">Hotels</span>
+            </a>
+        <a href="#" onclick="GetData('Museums')" class="nav-item">
+                <span class="nav-icon"><img src="/Image/icons8-pharaoh-60.png" alt="Alternate Text" style="width: 24px; height: 24px; object-fit: contain; display: inline-block; " /></span>
             <span class="nav-label">Museum</span>
         </a>
+        
 
     </nav>
-    <section class="hotel-listings ">
-        @foreach (var item in Model)
-        {
+    @* <section class="hotel-listings "> *@
+        <div id="PlaceDetails">
 
-            <!-- Card 1 -->
-            <div class="hotel-card ">
-                @if (item.imageSrc == null || item.imageSrc == "")
-                {
-                    <img src="\Images\no-image-found.jpg" alt="NOImage" />
-                }
-                else
-                {
-                    <img src="@item.imageSrc" alt="NOImage" />
-                }
-                <div class="hotel-info">
-                    <h3>@item.Place_Name</h3>
-                    <p class="rating">Rating : @item.Place_Rating</p>
-                    <p><span class="new-price"> Price : @item.Place_Price EGP</span></p>
-                    <a href="/Home/GetPlace/@item.Place_Id">
-                    <button type="button" class="btn btn-primary">View more !</button>
-                    </a>
-                </div>
-            </div>
-        }
-    </section>
+        </div>
+    @* </section> *@
+   
 </body>
-
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+       
+    <script>
+        function GetData(name) {
+            event.preventDefault();
+            $.ajax({
+                url: "/Home/" + name, // Assuming this route handles fetching all students
+                success: function (result) { // json or HTML
+                    // Assuming 'result' contains the list of students in HTML format
+                    document.getElementById("PlaceDetails").innerHTML = result;
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching student data: ", error);
+                }
+            });
+        }
+        window.onload = function () {
+            GetData('Hotels');
+        };
+     
+    </script>
+}
 
 <style>
     
@@ -88,10 +100,23 @@
      @*    position: relative; *@
         height: 60vh;
         width:100%;
-        background-image: url('/Image/Home.jpeg'); /* Replace with your image URL */
+        @* background-image: url('/Image/Home.jpeg'); *@ /* Replace with your image URL */
         @* background-size: cover;
         background-position: center; *@
     }
+
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%); /* Centers the video */
+            object-fit: cover; /* Ensures the video covers the entire hero section */
+        }
   
     .overlay {
         position: absolute;
@@ -99,7 +124,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5); /* Dark overlay to make text stand out */
+       @*  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay to make text stand out */ *@
         display: flex;
         align-items: center;
         justify-content: center;
@@ -137,7 +162,7 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        background-color: #1b0a02;
+        background-color: #9f9d9c;
         padding: 1rem 0;
     }
 
