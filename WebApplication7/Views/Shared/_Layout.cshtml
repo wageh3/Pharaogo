@@ -120,9 +120,17 @@
 
             <form class="d-flex" asp-controller="Search" asp-action="Index" method="get">
                 <input class="form-control mr-2" type="search" name="searchQuery" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-outline-success" name="search_icon" type="submit" >Search</button>
             </form>
-
+            <style>
+                .search_icon{
+                    color:#ffffff;
+                }
+                .search_icon :hover{
+                    background-color: #a59056;
+                   
+                }
+            </style>
 
         </div>
     </header>

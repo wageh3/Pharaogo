@@ -56,6 +56,9 @@ public class BookingController : Controller
         }
 
         pp.TotalAmount = place.Place_Price * numberofguests;
+        pp.PaymentCode = GeneratePaymentCode();
+        pp.NumberOfGuests = numberofguests;
+
         if (string.IsNullOrEmpty(PromotionCode))
         {
             pp.TotalAmountAfterDiss = pp.TotalAmount;
@@ -81,9 +84,7 @@ public class BookingController : Controller
             pp.TotalAmountAfterDiss = pp.TotalAmount; // No discount applied
         }
 
-        pp.PaymentCode = GeneratePaymentCode();
-        pp.NumberOfGuests = numberofguests;
-
+       
         // Check if the ModelState is valid
         if (!ModelState.IsValid)
         {
