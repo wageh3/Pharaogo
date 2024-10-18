@@ -7,6 +7,9 @@ namespace WebApplication7.Models
     {
         [Key]
         public int Place_Id { get; set; }
+        public int cnt { get; set; } = 0;
+        public int SumOfRates { get; set; } = 0;
+
         [Required]
         [Display(Name = "Place Name : ")]
 

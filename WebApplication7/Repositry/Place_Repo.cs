@@ -29,7 +29,7 @@ namespace WebApplication7.Repositry
             return ans;
         }
         public Place GetById(int id)
-            {
+        {
             return _context.Places.FirstOrDefault(x => x.Place_Id == id);
         }
 
