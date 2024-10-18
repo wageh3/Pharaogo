@@ -58,7 +58,15 @@ namespace WebApplication7.Controllers
 
 				if (result.Succeeded == true)
 				{
-                    await _userManager.AddToRoleAsync(userModel, "Visitor"); // Use uppercase as in the NormalizedName
+                    if (Userrvm.Email == "admiin@gmail.com")
+                    {
+                        await _userManager.AddToRoleAsync(userModel, "Admin");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(userModel, "Visitor");
+                    }
+
 
                     //Create Cookie
 
@@ -86,41 +94,43 @@ namespace WebApplication7.Controllers
 			return View();
 		}
 		[HttpPost]
-		public async Task<IActionResult> Login(LoginViewModel loginViewModel)
-		{
-			if (ModelState.IsValid)
-			{
-				// Find user by username
-				ApplicationUser user = await _userManager.FindByEmailAsync(loginViewModel.Email);
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // Find user by email
+                ApplicationUser user = await _userManager.FindByEmailAsync(loginViewModel.Email);
 
-				if (user != null)
-				{
-					// Check if the password is correct
-					bool found = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
-					if (found)
-					{
-						// Sign in the user using SignInManager
-						await signInManager.SignInAsync(user, loginViewModel.RememberMe);
+                if (user != null)
+                {
+                    // Check if the password is correct
+                    bool found = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
+                    if (found)
+                    {
+                        // Sign in the user using SignInManager
+                        await signInManager.SignInAsync(user, loginViewModel.RememberMe);
 
-						// Redirect to the home page after login
-						return RedirectToAction("Index", "Home");
-					}
+                        // Redirect to the home page after login
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        // Password is incorrect
+                        ModelState.AddModelError("Password", "Your password is incorrect.");
+                    }
+                }
+                else
+                {
+                    // User does not exist
+                    ModelState.AddModelError("", "User does not exist.");
+                }
+            }
 
-					// Add a model error if the username or password is incorrect
-					ModelState.AddModelError("", "Invalid username or password.");
-				}
-				else
-				{
-					// Add a model error if the user does not exist
-					ModelState.AddModelError("", "User does not exist.");
-				}
-			}
+            // If ModelState is not valid, return the view with errors
+            return View(loginViewModel);
+        }
 
-			// If ModelState is not valid, return the view with errors
-			return View(loginViewModel);
-		}
-     
-		public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout()
 		{
 			await signInManager.SignOutAsync();
 			return RedirectToAction("Index", "Home");

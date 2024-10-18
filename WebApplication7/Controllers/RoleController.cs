@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication7.ViewModels;
 
 namespace WebApplication7.Controllers
 {
-    public class RoleController : Controller
+	[Authorize(Roles = "Admin")]
+
+	public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
         public RoleController(RoleManager<IdentityRole> _rolemanager)

@@ -24,9 +24,10 @@ namespace WebApplication7.ViewModels
 
 
         [DataType(DataType.Password)]
-		[Required]
-		[Compare("Password")]
-		public string confirmPassword { get; set; }
+        [Required(ErrorMessage = "Confirm password is required.")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+
+        public string confirmPassword { get; set; }
 
 
 	}

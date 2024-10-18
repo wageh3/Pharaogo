@@ -108,9 +108,15 @@
                         @if (User.Identity.IsAuthenticated == true)
                         {
                         <li><a href="/User/Edit">Profile</a></li>
+                     
                         <a href="/Account/Logout">Logout</a>
                         }
                     </li>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li><a href="/Admin/Index">Settings</a></li>
+                    }
                 </ul>
             </nav>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

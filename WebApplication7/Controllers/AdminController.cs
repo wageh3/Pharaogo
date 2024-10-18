@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace DEPI.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
 
     public class AdminController : Controller
     {
