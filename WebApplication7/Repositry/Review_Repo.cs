@@ -16,13 +16,14 @@ namespace WebApplication7.Repositry
             dbContext = context;
         }
 
-        public void Add(string id ,int PlaceId, string msg)
+        public void Add(string id ,int PlaceId, string msg,string username)
         {
             Review review = new Review();
 
             review.User_ID = id;
             review.Place_Id = PlaceId;
             review.Comment = msg;
+            review.UserName = username;
             var msgg = dbContext.Review.Add(review);
             Save();
         }

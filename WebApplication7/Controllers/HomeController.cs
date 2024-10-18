@@ -11,15 +11,18 @@ namespace WebApplication7.Controllers
     {
         private readonly IPlace _home;
         private readonly IReview _review;
+        private readonly IUser _user;
         private readonly ILogger<HomeController> _logger;
+        
         DepiContext context;
         // Combine both dependencies into one constructor
-        public HomeController(IPlace home, IReview review, ILogger<HomeController> logger, DepiContext _context)
+        public HomeController(IPlace home, IReview review, ILogger<HomeController> logger, DepiContext _context, IUser user)
         {
             _home = home;
             _review = review;
             _logger = logger;
             context = _context;
+            _user = user;
         }
         public IActionResult Index()
         {
@@ -67,13 +70,26 @@ namespace WebApplication7.Controllers
                 ViewBag.ErrorMessage = "Review cannot be empty.";
                 return View(_review);
             }
+            DepiContext context = new DepiContext();
+            var obj=_user.GetUser(id);
+            string UserName="UnKnown";
+            if (obj != null)
+            {
+
+                UserName = obj;
+               
+            }
             string user_id = id;
-            _review.Add(user_id, PlaceId, Review);
-            return RedirectToAction("GetReviews", new { PlaceId = PlaceId, id = id });
+            _review.Add(user_id, PlaceId, Review,UserName);
+            
+                return RedirectToAction("GetReviews", new { username = UserName, PlaceId = PlaceId, id = id });
+            
         }
-        public IActionResult GetReviews(string id, int PlaceId)
+        public IActionResult GetReviews(string username ,string id, int PlaceId)
         {
             var p = _review.Getinfo(PlaceId);
+            var temp = p.review.FirstOrDefault(x => x.UserName == username);
+            ViewBag.UserNamee = username;
             return View("GetPlace", p);
         }
 

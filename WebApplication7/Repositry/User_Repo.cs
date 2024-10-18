@@ -11,6 +11,15 @@ public class User_Repo : IUser
         dbContext = context;
     }
 
+    public string GetUser(string id)
+    {
+        var user=dbContext.Users.Find(id);
+        if (user != null)
+        {
+            return user.UserName;
+        }
+        else { return "UnKnown"; }
+    }
     public RegisterViewModel Update(string id)
     {
         User ss = dbContext.User.FirstOrDefault(x => x.Id == id);

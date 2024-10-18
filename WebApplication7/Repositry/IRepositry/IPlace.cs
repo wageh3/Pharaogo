@@ -10,6 +10,7 @@ namespace WebApplication7.Repositry.IRepositry
         public PlaceViewModel GetAllHotels();
         public PlaceViewModel Get(int id); 
         public Place GetById(int id); 
+        
         public void Add(Place place);
         public void Edit(PlaceViewModel place);
         public void Delete(int id);

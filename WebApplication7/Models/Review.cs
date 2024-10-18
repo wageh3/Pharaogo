@@ -16,6 +16,7 @@ namespace WebApplication7.Models
         public Place place { get; set; }
         [Required]
         public int Rating { get; set; }
+        public string? UserName {  get; set; }
         public DateTime? Date { get; set; }
     }
 }

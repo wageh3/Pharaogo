@@ -13,6 +13,7 @@ namespace WebApplication7.ViewModels
         public List<Review>? review { get; set; }
        public List<User>? user { get; set; }
         
+        
 
     }
 }
