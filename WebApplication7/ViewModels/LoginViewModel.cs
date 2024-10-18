@@ -12,9 +12,9 @@ namespace WebApplication7.ViewModels
 		[Required(ErrorMessage = "Password is required.")]
 		[DataType(DataType.Password)]
 		public string Password { get; set; }
-		public bool RememberMe { get; set; }
+        public bool RememberMe { get; set; } // Add this property
 
 
 
-	}
+    }
 }

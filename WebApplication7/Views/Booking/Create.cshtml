@@ -17,6 +17,7 @@
         </div>
     </div>
 
+
     <form asp-action="Payment" asp-route-id="@Model.PlaceID" asp-route-numberOfGuests="@Model.NumberOfGuests" asp-route-PromotionCode="@Model.PromotionCode" method="get" class="mt-4">
         @if (Model.PlaceType == "Hotel")
         {

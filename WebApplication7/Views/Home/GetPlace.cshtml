@@ -36,14 +36,16 @@
     <p>@item.Comment</p>    
 }
 
-<form asp-action="GetUserId" asp-route-PlaceId="@Model.SpecificPlace.Place_Id" asp-route-Review="@Model.Review" class="">
-    <div class="form-group">
-        <label asp-for="Review">Add Your Review</label>
-        <textarea asp-for="Review" class="form-control"></textarea>
-    </div>
-    <button type="submit" class="cta-button">Send Review</button>
-</form>
-
+@if (User.Identity.IsAuthenticated == true)
+{
+    <form asp-action="GetUserId" asp-route-PlaceId="@Model.SpecificPlace.Place_Id" asp-route-Review="@Model.Review" class="">
+        <div class="form-group">
+            <label asp-for="Review">Add Your Review</label>
+            <textarea asp-for="Review" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="cta-button">Send Review</button>
+    </form>
+}
 
 <h3>Places You Might like</h3>
 <partial name="_PlacesPartial" model="Model"></partial>

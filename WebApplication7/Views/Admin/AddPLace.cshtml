@@ -10,16 +10,41 @@
             <input asp-for="Place_Name" class="form-control" />
             <span asp-validation-for="Place_Name" class="text-danger"></span>
         </div>
-
         <div class="form-group">
             <label asp-for="Place_Type" class="control-label"></label>
-            <input asp-for="Place_Type" class="form-control" />
+            <select asp-for="Place_Type" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                <option value="">-- Select Place Type --</option>
+                <option value="Museum" selected>Museum</option>
+                <option value="Hotel">Hotel</option>
+            </select>
             <span asp-validation-for="Place_Type" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Place_City" class="control-label"></label>
-            <input asp-for="Place_City" class="form-control" />
+            <select asp-for="Place_City" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                <option value="">-- Select City --</option>
+                <option value="Cairo" selected>Cairo</option>
+                <option value="Alexandria">Alexandria</option>
+                <option value="Giza">Giza</option>
+                <option value="Shubra El-Kheima">Shubra El-Kheima</option>
+                <option value="Port Said">Port Said</option>
+                <option value="Suez">Suez</option>
+                <option value="Luxor">Luxor</option>
+                <option value="Asyut">Asyut</option>
+                <option value="Mansoura">Mansoura</option>
+                <option value="Tanta">Tanta</option>
+                <option value="Ismailia">Ismailia</option>
+                <option value="Faiyum">Faiyum</option>
+                <option value="Zagazig">Zagazig</option>
+                <option value="Damietta">Damietta</option>
+                <option value="Minya">Minya</option>
+                <option value="Beni Suef">Beni Suef</option>
+                <option value="Qena">Qena</option>
+                <option value="Sohag">Sohag</option>
+                <option value="Hurghada">Hurghada</option>
+                <option value="Sharm El Sheikh">Sharm El Sheikh</option>
+            </select>
             <span asp-validation-for="Place_City" class="text-danger"></span>
         </div>
 

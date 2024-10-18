@@ -2,6 +2,7 @@
 using WebApplication7.Models;
 using WebApplication7.ViewModels;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 public class BookingController : Controller
 {
@@ -44,70 +45,69 @@ public class BookingController : Controller
         return View(bookingViewModel);
     }
 
-    [HttpGet]
-    public IActionResult Payment(int id, int numberofguests, string PromotionCode)
+   
+[HttpGet]
+public IActionResult Payment(int id, int numberofguests, string PromotionCode)
+{
+    // Check if the user is authenticated
+    if (!User.Identity.IsAuthenticated)
     {
-        PaymentViewModel pp = new PaymentViewModel();
-        Place place = dbContext.Places.FirstOrDefault(x => x.Place_Id == id);
+        TempData["ErrorMessage"] = "You are not authorized to access this page.Please Login First";
+        return RedirectToAction("Login", "Account"); // Adjust this to your login action
+    }
 
-        if (place == null)
+    PaymentViewModel pp = new PaymentViewModel();
+    Place place = dbContext.Places.FirstOrDefault(x => x.Place_Id == id);
+
+    // Check if the place is null
+    if (place == null)
+    {
+        return NotFound("Place not found");
+    }
+
+    // Set the base payment values
+    pp.TotalAmount = place.Place_Price * numberofguests;
+    pp.PaymentCode = GeneratePaymentCode();
+    pp.NumberOfGuests = numberofguests;
+    pp.TotalAmountAfterDiss = pp.TotalAmount; // Initialize with no discount
+
+    // If a promotion code is provided
+    if (!string.IsNullOrEmpty(PromotionCode))
+    {
+        var promo = dbContext.Promotions.FirstOrDefault(x => x.promotion_Code == PromotionCode);
+
+        if (promo != null)
         {
-            return NotFound("Place not found");
-        }
-
-        pp.TotalAmount = place.Place_Price * numberofguests;
-        pp.PaymentCode = GeneratePaymentCode();
-        pp.NumberOfGuests = numberofguests;
-
-        if (string.IsNullOrEmpty(PromotionCode))
-        {
-            pp.TotalAmountAfterDiss = pp.TotalAmount;
-            return View(pp);
-        }
-        if (!string.IsNullOrEmpty(PromotionCode))
-        {
-            var promo = dbContext.Promotions.FirstOrDefault(x => x.promotion_Code == PromotionCode);
-
-            if (promo != null)
-            {
-                pp.TotalAmountAfterDiss = (place.Place_Price - (promo.Discount_Amount * place.Place_Price) / 100) * numberofguests;
-            }
-            else
-            {
-                // Add ModelState error if the promotion code is invalid
-                ModelState.AddModelError("PromotionCode", "Invalid promotion code.");
-                pp.TotalAmountAfterDiss = pp.TotalAmount; // No discount applied
-            }
+            // Calculate discount
+            pp.TotalAmountAfterDiss = (place.Place_Price - (promo.Discount_Amount * place.Place_Price) / 100) * numberofguests;
         }
         else
         {
-            pp.TotalAmountAfterDiss = pp.TotalAmount; // No discount applied
+            // Add an error for an invalid promotion code
+            ModelState.AddModelError("PromotionCode", "Invalid promotion code.");
         }
-
-       
-        // Check if the ModelState is valid
-        if (!ModelState.IsValid)
-        {
-            BookingViewModel bookingViewModel = new BookingViewModel();
-           
-
-            if (place == null)
-            {
-                return NotFound("Place not found");
-            }
-
-            bookingViewModel.PlaceID = place.Place_Id;
-            bookingViewModel.PlaceName = place.Place_Name;
-            bookingViewModel.dbimage = place.dbimage;
-            bookingViewModel.Description = place.Description;
-            bookingViewModel.TotalAmount = place.Place_Price;
-            bookingViewModel.PlaceType = place.Place_Type;
-
-            return View("Create",bookingViewModel);
-        }
-
-        return View(pp);
     }
+
+    // If the model state is invalid, return to a different view (like booking form)
+    if (!ModelState.IsValid)
+    {
+        BookingViewModel bookingViewModel = new BookingViewModel
+        {
+            PlaceID = place.Place_Id,
+            PlaceName = place.Place_Name,
+            dbimage = place.dbimage,
+            Description = place.Description,
+            TotalAmount = place.Place_Price,
+            PlaceType = place.Place_Type
+        };
+
+        return View("Create", bookingViewModel);
+    }
+
+    // Return the payment view with the PaymentViewModel
+    return View(pp);
+}
+
 
     [HttpPost]
     public IActionResult PaymentConfirmed(int TotalAmountAfterDiss)
