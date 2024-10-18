@@ -4,7 +4,6 @@
 @{
 	ViewData["Title"] = "Home Page";
 }
-@* .. *@
 <!doctype html>
 <link href="/css/Index.css" rel="stylesheet" />
 <body >
@@ -97,21 +96,34 @@
                                     <div class="star-rating">
                                         @for (int i = 1; i <= 5; i++)
                                         {
-                                            int temp = int.Parse(item.Place_Rating);
-                                            if (i <= (temp))
-                                            {
-                                                <!-- Full star for each whole number -->
-                                                <span class="full-star">&#9733;</span>
-                                            }
-                                            else if (i - 1 < temp && temp < i)
-                                            {
-                                                <!-- Half star for fractional ratings (if any) -->
-                                                <span class="half-star">&#9734;</span>
-                                            }
-                                            else
-                                            {
-                                                <!-- Empty star for numbers beyond the rating -->
-                                                <span class="empty-star">&#9734;</span>
+                                            
+                                                int temp ;
+                                                
+                                                if (int.TryParse(item.Place_Rating, out temp))
+                                                {
+                                                    // Parsing successful, use temp
+                                                    temp = Convert.ToInt32(item.Place_Rating);
+                                                }
+                                                else
+                                                {
+                                                    // Handle invalid format case
+                                                    temp = 0;
+                                                }
+                                                if (i <= (temp))
+                                                {
+                                                    <!-- Full star for each whole number -->
+                                                    <span class="full-star">&#9733;</span>
+                                                }
+                                                else if (i - 1 < temp && temp < i)
+                                                {
+                                                    <!-- Half star for fractional ratings (if any) -->
+                                                    <span class="half-star">&#9734;</span>
+                                                }
+                                                else
+                                                {
+                                                    <!-- Empty star for numbers beyond the rating -->
+                                                    <span class="empty-star">&#9734;</span>
+                                                }
                                             }
                                         }
                                         <span class="rating-number">(@item.Place_Rating)</span>

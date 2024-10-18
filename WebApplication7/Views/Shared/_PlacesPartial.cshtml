@@ -34,7 +34,18 @@
                             <div class="star-rating">
                                 @for (int i = 1; i <= 5; i++)
                                 {
-                                    int temp = int.Parse(item.Place_Rating);
+                                    int temp;
+
+                                    if (int.TryParse(@Model.SpecificPlace.Place_Rating, out temp))
+                                    {
+                                        // Parsing successful, use temp
+                                        temp = Convert.ToInt32(@Model.SpecificPlace.Place_Rating);
+                                    }
+                                    else
+                                    {
+                                        // Handle invalid format case
+                                        temp = 0;
+                                    }
                                     if (i <= (temp))
                                     {
                                         <!-- Full star for each whole number -->
