@@ -70,7 +70,10 @@ public IActionResult Payment(int id, int numberofguests, string PromotionCode)
     pp.PaymentCode = GeneratePaymentCode();
     pp.NumberOfGuests = numberofguests;
     pp.TotalAmountAfterDiss = pp.TotalAmount; // Initialize with no discount
-
+        if(PromotionCode==null || PromotionCode == "")
+        {
+            return View(pp);
+        }
     // If a promotion code is provided
     if (!string.IsNullOrEmpty(PromotionCode))
     {
@@ -87,6 +90,7 @@ public IActionResult Payment(int id, int numberofguests, string PromotionCode)
             ModelState.AddModelError("PromotionCode", "Invalid promotion code.");
         }
     }
+   
 
     // If the model state is invalid, return to a different view (like booking form)
     if (!ModelState.IsValid)
