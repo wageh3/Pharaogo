@@ -75,10 +75,10 @@ namespace WebApplication7.Controllers
                 return View(_review);
             }
             string user_id = id;
-            _review.Add(user_id,PlaceId,Review);
-            return RedirectToAction("GetReviews", new {PlaceId=PlaceId , id=id});
+            _review.Add(user_id, PlaceId, Review);
+            return RedirectToAction("GetReviews", new { PlaceId = PlaceId, id = id });
         }
-        public IActionResult GetReviews(string id ,int PlaceId)
+        public IActionResult GetReviews(string id, int PlaceId)
         {
             var p = _review.Getinfo(PlaceId);
             return View("GetPlace", p);

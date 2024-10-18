@@ -4,8 +4,9 @@
 @{
 	ViewData["Title"] = "Home Page";
 }
-
+@* .. *@
 <!doctype html>
+<link href="/css/Index.css" rel="stylesheet" />
 <body >
     <section class="hero">
         <video autoplay muted loop playsinline >
@@ -71,34 +72,44 @@
             @foreach (var item in Model.RelatedPlaces)
             {
 
-                <!-- Card 1 -->
-                <form asp-action="GetPlace" asp-controller="Home" asp-route-id="@item.Place_Id" method="get">
-                    <div class="hotel-card ">
-                        @if (item.imageSrc == null || item.imageSrc == "")
-                        {
-                            <img src="\Images\no-image-found.jpg" alt="NOImage" />
-                        }
-                        else
-                        {
-                            <img src="@item.imageSrc" alt="NOImage" />
-                        }
-                        <div class="hotel-info">
-                            <h3>@item.Place_Name</h3>
-                            <p class="rating">Rating : @item.Place_Rating</p>
-                            <p><span class="new-price"> Price : @item.Place_Price EGP</span></p>
-
-                            <button type="submit" class="btn btn-primary">View more !</button>
-
-                        </div>
+                <div class="hotel-card-wrapper">
+                    <!-- Transparent button for the heart icon, hidden initially -->
+                    <div class="heart-icon">
+                        <button type="button" class="heart-btn" onclick="favoritePlace(@item.Place_Id);">
+                            <img src="/Images/heart.png" alt="Heart Icon" />
+                        </button>
                     </div>
-                </form>
-            }
 
+                    <!-- The large clickable card -->
+                    <a href="Home/GetPlace/@item.Place_Id">
+                        <form asp-action="GetPlace" asp-controller="Home" asp-route-id="@item.Place_Id" method="get">
+                            <div class="hotel-card">
+                                @if (item.imageSrc == null || item.imageSrc == "")
+                                {
+                                    <img src="\Images\no-image-found.jpg" alt="NOImage" />
+                                }
+                                else
+                                {
+                                    <img src="@item.imageSrc" alt="Place Image" />
+                                }
+                                <div class="hotel-info">
+                                    <h3>@item.Place_Name</h3>
+                                    <p class="rating">Rating : @item.Place_Rating</p>
+                                    <p><span class="new-price">Price: @item.Place_Price EGP</span></p>
+                                </div>
+                            </div>
+                        </form>
+                    </a>
+                </div>
+            }
+        
         </section>
 
         </div>
-    @* </section> *@
-   
+    
+
+ 
+ 
 </body>
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -122,149 +133,9 @@
         };
      
     </script>
+    <script>
+        function favoritePlace(placeId) {
+            window.location.href = '/Home/FavoritePlace/' + placeId;
+        }
+    </script>
 }
-
-<style>
-    
-   .hero{
-     @*    position: relative; *@
-        height: 60vh;
-        width:100%;
-        padding-top:520px;
-        
-        @* background-image: url('/Image/Home.jpeg'); *@ /* Replace with your image URL */
-        @* background-size: cover;
-        background-position: center; *@
-    }
-
-        .hero video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1;
-            transform: translate(-50%, -50%); /* Centers the video */
-            object-fit: cover; /* Ensures the video covers the entire hero section */
-        }
-  
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-       @*  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay to make text stand out */ *@
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
- 
-    .content h1 {
-        color: white;
-        font-size: 3rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-    }
-
-    .content p {
-        color: white;
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    .cta-button {
-        padding: 1rem 2rem;
-        background-color: #ff6700;
-        color: white;
-        text-decoration: none;
-        font-size: 1.2rem;
-        border-radius: 30px;
-    }
-
-        .cta-button:hover {
-            background-color: #ff4500;
-        }
-
-    /* Footer navigation */
-    .footer-nav {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        background-color: #9f9d9c;
-        padding: 1rem 0;
-    }
-
-    .nav-item {
-        text-align: center;
-        color: white;
-        text-decoration: none;
-    }
-
-    .nav-icon {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .nav-label {
-        font-size: 1rem;
-    }
-
-    .hotel-listings {
-        display: flex; /* Use flexbox for horizontal layout */
-        flex-wrap: wrap; /* Allow wrapping to the next line if space runs out */
-        gap: 20px; /* Space between cards */
-        padding: 20px; /* Padding around the section */
-        justify-content: center; /* Center the cards in the container */
-    }
-
-    .hotel-card {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        text-align: center;
-        flex: 1 1 300px; /* Allow cards to grow, shrink, and have a base width of 300px */
-        min-width: 250px; /* Minimum width for each card */
-    }
-
-        .hotel-card img {
-            width: 100%;
-            height: 150px; /* Fixed height for the image */
-            object-fit: cover; /* Cover the space without distortion */
-        }
-
-    .hotel-info {
-        padding: 15px; /* Padding inside the hotel info section */
-    }
-
-        .hotel-info h3 {
-            font-size: 18px; /* Font size for the place name */
-            margin-bottom: 8px; /* Space below the title */
-        }
-
-        .hotel-info .rating {
-            font-size: 14px; /* Font size for the rating */
-            color: #2c9c1a; /* Color for the rating */
-        }
-
-    .new-price {
-        font-weight: bold; /* Bold style for the price */
-        color: #000; /* Color for the price */
-        font-size: 16px; /* Font size for the price */
-    }
-
-        .btn:hover {
-            background-color: #0056b3; /* Darker shade on hover */
-        }
-
-</style>
-<script>
-    function showMuseumInfo() {
-        //alert("Welcome to the Museum Section!");
-        // Additional logic can be added here for more complex actions
-    }
-</script>
