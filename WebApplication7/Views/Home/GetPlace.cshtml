@@ -8,24 +8,68 @@
         <h1>@Model.SpecificPlace.Place_Name</h1>
         <h3>@Model.SpecificPlace.Place_City</h3>
         <p>@Model.SpecificPlace.Description</p>
-        <p>@Model.SpecificPlace.Place_Rating</p>
-        <p> @Model.SpecificPlace.Place_Price EGP</p>
+
+        <!-- Rating Section -->
+        <div class="star-rating">
+            @for (int i = 1; i <= 5; i++)
+            {
+                int temp = int.Parse(@Model.SpecificPlace.Place_Rating);
+                if (i <= (temp))
+                {
+                    <!-- Full star for each whole number -->
+                    <span class="full-star">&#9733;</span>
+                }
+                else if (i - 1 < temp && temp < i)
+                {
+                    <!-- Half star for fractional ratings (if any) -->
+                    <span class="half-star">&#9734;</span>
+                }
+                else
+                {
+                    <!-- Empty star for numbers beyond the rating -->
+                    <span class="empty-star">&#9734;</span>
+                }
+            }
+            <span class="rating-number">(@Model.SpecificPlace.Place_Rating)</span>
+        </div>
+        <style>
+    .star-rating {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .full-star, .empty-star, .half-star {
+        font-size: 1.5rem;
+        color: gold;
+    }
+
+    .half-star {
+        color: lightgray;
+    }
+
+    .rating-number {
+        margin-left: 8px;
+        font-size: 1rem;
+        color: #333;
+    }
+</style>
+
+        <p>@Model.SpecificPlace.Place_Price EGP</p>
         <a href="/Booking/Create/@Model.SpecificPlace.Place_Id" class="cta-button">Book Now</a>
     </div>
     <div class="image-container">
-        
-            @if (Model.SpecificPlace.imageSrc == null || Model.SpecificPlace.imageSrc == "")
-            {
-                <img src="\Images\no-image-found.jpg" alt="NOImage" />
-            }
-            else
-            {
-                <img src="@Model.SpecificPlace.imageSrc" alt="NOImage" />
-            }
-        
+        @if (Model.SpecificPlace.imageSrc == null || Model.SpecificPlace.imageSrc == "")
+        {
+            <img src="\Images\no-image-found.jpg" alt="No Image Available" />
+        }
+        else
+        {
+            <img src="@Model.SpecificPlace.imageSrc" alt="Place Image" />
+        }
     </div>
-    
 </div>
+
 <div>
     
     <a asp-action="Index">Back to List</a>
@@ -52,7 +96,7 @@
 
         <button type="submit" class="btn btn-primary">Submit Review</button>
     </form>
-    <p class="rating-output">Current Rating: <span id="current-rating">0</span></p>
+    <p class="rating-output" hidden>Current Rating: <span id="current-rating">0</span></p>
 </div>
 
 <script>
