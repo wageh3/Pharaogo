@@ -14,18 +14,6 @@ namespace WebApplication7.Controllers
             context= _context;
         }
         
-        public void Index(int id,int rating)
-
-        {
-            Place p = place.GetById(id);
-            decimal temp;
-            p.cnt = p.cnt + 1;
-            p.SumOfRates=p.SumOfRates+ rating;
-            context.SaveChanges();
-            temp=p.SumOfRates/p.cnt;
-            p.Place_Rating = temp.ToString();
-            context.SaveChanges();
-           
-        }
+       
     }
 }

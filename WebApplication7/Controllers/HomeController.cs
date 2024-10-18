@@ -12,22 +12,15 @@ namespace WebApplication7.Controllers
         private readonly IPlace _home;
         private readonly IReview _review;
         private readonly ILogger<HomeController> _logger;
-
+        DepiContext context;
         // Combine both dependencies into one constructor
-        public HomeController(IPlace home, IReview review, ILogger<HomeController> logger)
+        public HomeController(IPlace home, IReview review, ILogger<HomeController> logger, DepiContext _context)
         {
             _home = home;
             _review = review;
             _logger = logger;
+            context = _context;
         }
-
-        
-
-        /*public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }*/
-
         public IActionResult Index()
         {
 
@@ -88,6 +81,26 @@ namespace WebApplication7.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult UpdateRate(int id, int rating)
+
+        {
+            Place p = _home.GetById(id);
+            decimal temp;
+            if (p == null)
+            {
+                
+                return NotFound();
+            }
+            p.cnt = p.cnt + 1;
+            p.SumOfRates = p.SumOfRates + rating;
+            context.SaveChanges();
+            temp = p.SumOfRates / p.cnt;
+            p.Place_Rating = temp.ToString();
+            context.SaveChanges();
+            PlaceViewModel pp = new PlaceViewModel();
+            pp = _review.Getinfo(id);
+            return View("GetPlace",pp);
         }
     }
 }
