@@ -81,8 +81,8 @@
                     </div>
 
                     <!-- The large clickable card -->
-                    <a href="Home/GetPlace/@item.Place_Id">
-                        <form asp-action="GetPlace" asp-controller="Home" asp-route-id="@item.Place_Id" method="get">
+                    <a asp-action="GetPlace" asp-controller="Home" asp-route-id="@item.Place_Id">
+                        <form>
                             <div class="hotel-card">
                                 @if (item.imageSrc == null || item.imageSrc == "")
                                 {

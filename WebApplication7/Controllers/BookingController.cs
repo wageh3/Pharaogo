@@ -52,7 +52,7 @@ public IActionResult Payment(int id, int numberofguests, string PromotionCode)
     // Check if the user is authenticated
     if (!User.Identity.IsAuthenticated)
     {
-        TempData["ErrorMessage"] = "You are not authorized to access this page.Please Login First";
+        TempData["ErrorMessage"] = "Please Login First";
         return RedirectToAction("Login", "Account"); // Adjust this to your login action
     }
 
