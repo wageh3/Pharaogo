@@ -67,29 +67,7 @@
                                     }
                                     <span class="rating-number">(@item.Place_Rating)</span>
                                 </div>
-                                <style>
-                                    .star-rating {
-                                        justify-content: center;
-                                        display: flex;
-                                        align-items: center;
-                                        margin-bottom: 10px;
-                                    }
-
-                                    .full-star, .empty-star, .half-star {
-                                        font-size: 1.5rem;
-                                        color: gold;
-                                    }
-
-                                    .half-star {
-                                        color: lightgray;
-                                    }
-
-                                    .rating-number {
-                                        margin-left: 8px;
-                                        font-size: 1rem;
-                                        color: #333;
-                                    }
-                                </style>
+                               
                                 <p><span class="new-price">Price: @item.Place_Price EGP</span></p>
                             </div>
                         </div>
@@ -99,13 +77,33 @@
         }
 
     }
+    
+  <style>
+    .star-rating {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
 
+    .full-star, .empty-star, .half-star {
+        font-size: 1.5rem;
+        color: gold;
+    }
 
+    .half-star {
+        color: lightgray;
+    }
 
+    .rating-number {
+        margin-left: 8px;
+        font-size: 1rem;
+        color: #333;
+    }
+</style>
     <script>
         function favoritePlace(placeId) {
             window.location.href = '/Home/Deletewish/' + placeId;
             }
     </script>
-
 </section>

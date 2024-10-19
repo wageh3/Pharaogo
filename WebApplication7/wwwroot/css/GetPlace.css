@@ -1,0 +1,231 @@
+﻿.star-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.full-star, .empty-star, .half-star {
+    font-size: 1.5rem;
+    color: gold;
+}
+
+.half-star {
+    color: lightgray;
+}
+
+.rating-number {
+    margin-left: 8px;
+    font-size: 1rem;
+    color: #333;
+}
+.rating-box {
+    background: linear-gradient(135deg, #f7f7f7, #e2e2e2);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    transition: transform 0.3s;
+}
+
+    .rating-box:hover {
+        transform: scale(1.05);
+    }
+
+/* Heading */
+h2 {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Rating Form */
+.rating-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Star Rating */
+.star-rating {
+    display: flex;
+    gap: 5px;
+}
+
+    .star-rating input {
+        display: none;
+    }
+
+    .star-rating label {
+        font-size: 2.5rem;
+        color: #ccc;
+        cursor: pointer;
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+        .star-rating label:hover,
+        .star-rating input:checked ~ label {
+            color: #ffd700;
+        }
+
+    .star-rating input:checked + label,
+    .star-rating input:hover + label {
+        transform: scale(1.2);
+        color: #ffac33;
+    }
+
+/* Submit Button */
+.btn-primary {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+    background-color: #d5c188;
+    border-color: #d5c188;
+}
+
+    .btn-primary:hover {
+        background-color: #a59056;
+        cursor: pointer;
+    }
+
+/* Rating Output */
+.rating-output {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    color: #444;
+    margin-top: 10px;
+}
+/* Style the section title */
+.reviews-title {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Style the container holding all reviews */
+.reviews-container {
+    max-width: 800px;
+    margin: 0 auto; /* Center the container */
+    padding: 0 20px;
+}
+
+/* Style individual review items */
+.review-item {
+    background-color: #f1f1f1; /* Light background for the review item */
+    border-left: 4px solid #a59056; /* Left border for emphasis */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+    transition: transform 0.2s ease;
+}
+
+    /* Add a slight hover effect for better interaction feedback */
+    .review-item:hover {
+        transform: translateY(-5px);
+    }
+
+/* Style the review comment text */
+.review-comment {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Responsive styling for smaller devices */
+.ad-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    width: 100%;
+}
+
+.text-container {
+    max-width: 60%;
+}
+
+    .text-container h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .text-container p {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+    background-color: #d5c188;
+    border-color: #d5c188;
+}
+
+.cta-button:hover {
+    background-color: #a59056;
+}
+
+.image-container img {
+    max-width: 350px;
+    border-radius: 10px;
+}
+
+
+.hotel-listings {
+    display: flex; /* Use flexbox for horizontal layout */
+    flex-wrap: wrap; /* Allow wrapping to the next line if space runs out */
+    gap: 20px; /* Space between cards */
+    padding: 20px; /* Padding around the section */
+    justify-content: center; /* Center the cards in the container */
+}
+
+.hotel-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    flex: 1 1 300px; /* Allow cards to grow, shrink, and have a base width of 300px */
+    min-width: 250px; /* Minimum width for each card */
+}
+
+    .hotel-card img {
+        width: 100%;
+        height: 150px; /* Fixed height for the image */
+        object-fit: cover; /* Cover the space without distortion */
+    }
+
+.hotel-info {
+    padding: 15px; /* Padding inside the hotel info section */
+}
+
+    .hotel-info h3 {
+        font-size: 18px; /* Font size for the place name */
+        margin-bottom: 8px; /* Space below the title */
+    }
+
+    .hotel-info .rating {
+        font-size: 14px; /* Font size for the rating */
+        color: #2c9c1a; /* Color for the rating */
+    }
