@@ -44,16 +44,7 @@ namespace WebApplication7.Controllers
             p = _review.Getinfo(id);
             return View(p);
         }
-        public IActionResult Museums()
-        {
-
-            return PartialView("Details", _home.GetAllMuseum());
-        }
-        public IActionResult Hotels()
-        {
-
-            return PartialView("Details", _home.GetAllHotels());
-        }
+        
         public IActionResult Privacy()
         {
             return View();
@@ -75,7 +66,7 @@ namespace WebApplication7.Controllers
                 return RedirectToAction("Login");
             }
 
-            var userName = _user.GetUser(id) ?? "Unknown"; // Ensure non-null value for userName
+            var userName = _user.GetUser(id) ?? "Unknown"; 
             _review.Add(id, PlaceId, Review, userName);
 
             return RedirectToAction("GetReviews", new { PlaceId = PlaceId });
@@ -90,12 +81,8 @@ namespace WebApplication7.Controllers
         }
         public IActionResult DeleteReview(int id,int placeid)
         {
-
-            
-                _review.Delete(id);
+            _review.Delete(id);
             return RedirectToAction("GetPlace", new {id=placeid });
-
-
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

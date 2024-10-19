@@ -19,13 +19,10 @@ public class SearchController : Controller
     {
          
         var results = _context.Places.Where(x => x.Place_Name.Contains(searchQuery)).ToList();
-        if (string.IsNullOrEmpty(searchQuery) || results==null || results.IsNullOrEmpty())
+        if (string.IsNullOrEmpty(searchQuery) || results == null || results.IsNullOrEmpty())
         {
-            return View("NotFound"); // Return the default view if no search query is provided
+            return View("NotFound");
         }
-
-        // Query the database based on the search input
-        
-        return View(results); // Pass the results to the view
+        return View(results); 
     }
 }

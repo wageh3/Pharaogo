@@ -27,7 +27,6 @@ namespace WebApplication7
             builder.Services.AddScoped<IPlace, Place_Repo>();
             builder.Services.AddScoped<IAdmin, Admin_Repo>();
             builder.Services.AddScoped<IBooking, Booking_Repo>();
-            builder.Services.AddScoped<IMembership, Membership_Repo>();
             builder.Services.AddScoped<IPayment, Payment_Repo>();
             builder.Services.AddScoped<IReview, Review_Repo>();
             builder.Services.AddScoped<IUser, User_Repo>();

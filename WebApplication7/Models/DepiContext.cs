@@ -14,12 +14,11 @@ namespace WebApplication7.Models
         public DbSet<User> User { get; set; }
         public DbSet<Admin> Admin { get; set; }
         public DbSet<Booking> Booking { get; set; }
-        public DbSet<Membership> Memberships { get; set; }
+        
         public DbSet<Place> Places { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Review> Review { get; set; }
-        public DbSet<Contact_Us> contact_us { get; set; }
         public DbSet<WishList> wishLists { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

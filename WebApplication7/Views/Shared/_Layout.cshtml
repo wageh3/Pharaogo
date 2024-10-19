@@ -140,8 +140,8 @@
 
                     .btn-outline:hover {
                         color: white;
-                        border-color: a59056;
-                        background-color: a59056;
+                        border-color: #a59056;
+                        background-color: #a59056;
                     }
             </style>
            
@@ -181,9 +181,9 @@
 
                     <div class="col-lg-2 col-md-3 footer-links">
                         <ul>
-                            <li><a asp-action="Index">Home</a></li>
-                            <li><a asp-action="AboutUs">About us</a></li>
-                            <li><a asp-action="Index">Places</a></li>
+                            <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                            <li><a asp-action="AboutUs" asp-controller="Home">About us</a></li>
+                            <li><a asp-action="Index" asp-controller="Home">Places</a></li>
 
 
                         </ul>
@@ -192,8 +192,8 @@
                     <div class="col-lg-2 col-md-3 footer-links">
                         <h4>Our Services</h4>
                         <ul>
-                            <li><a asp-action="Header_Museums">Musuems</a></li>
-                            <li><a asp-action="Header_Hotels">Hotels</a></li>
+                            <li><a asp-action="Header_Museums" asp-controller="Home">Musuems</a></li>
+                            <li><a asp-action="Header_Hotels" asp-controller="Home">Hotels</a></li>
 
 
                         </ul>

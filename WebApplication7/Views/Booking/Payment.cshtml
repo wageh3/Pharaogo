@@ -8,6 +8,10 @@
         <p><strong>Number Of Guests:</strong> @Model.NumberOfGuests</p>
         <p><strong>Total Amount After Discount:</strong> @Model.TotalAmountAfterDiss EGP</p>
         <p><strong>Payment Code:</strong> @Model.PaymentCode</p>
+        @if (Model.TotalDayes != null)
+        {
+            <p><strong>Total Dayes:</strong> @Model.TotalDayes</p>
+        }
     </div>
 
     <form asp-action="Index" asp-controller="Payment" asp-route-price="@Model.TotalAmountAfterDiss" method="post">

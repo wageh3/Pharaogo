@@ -3,14 +3,19 @@ using WebApplication7.Models;
 using WebApplication7.ViewModels;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using WebApplication7.Repositry.IRepositry;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.VisualBasic;
 
 public class BookingController : Controller
 {
     private readonly DepiContext dbContext;
+    private readonly IPlace placerebo;
 
-    public BookingController(DepiContext context)
+    public BookingController(DepiContext context,IPlace _place)
     {
         dbContext = context;
+        placerebo= _place;
     }
 
     [HttpGet]
@@ -47,8 +52,11 @@ public class BookingController : Controller
 
    
 [HttpGet]
-public IActionResult Payment(int id, int numberofguests, string PromotionCode)
+public IActionResult Payment(int id, int numberofguests,int dayes, string PromotionCode)
 {
+
+        
+        
     // Check if the user is authenticated
     if (!User.Identity.IsAuthenticated)
     {
@@ -69,8 +77,17 @@ public IActionResult Payment(int id, int numberofguests, string PromotionCode)
     pp.TotalAmount = place.Place_Price * numberofguests;
     pp.PaymentCode = GeneratePaymentCode();
     pp.NumberOfGuests = numberofguests;
-    pp.TotalAmountAfterDiss = pp.TotalAmount; // Initialize with no discount
-        if(PromotionCode==null || PromotionCode == "")
+     // Initialize with no discount
+        var p = placerebo.GetById(id);
+
+        if (p.Place_Type == "Hotel")
+        {
+           
+            pp.TotalDayes = dayes;
+            pp.TotalAmount = pp.TotalAmount * dayes;
+        }
+        pp.TotalAmountAfterDiss = pp.TotalAmount;
+        if (PromotionCode==null || PromotionCode == "")
         {
             return View(pp);
         }
