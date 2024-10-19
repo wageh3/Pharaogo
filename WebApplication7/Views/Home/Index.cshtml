@@ -189,9 +189,16 @@
         };
      
     </script>
+    @if (Model.Message != null)
+    {
+        <script>
+            alert(@Model.Message);
+        </script>
+    }
+
     <script>
         function favoritePlace(placeId) {
-            window.location.href = '/Home/FavoritePlace/' + placeId;
+            window.location.href = '/Home/FavouritePlace/' + placeId;
         }
     </script>
 }

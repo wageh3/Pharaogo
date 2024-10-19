@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication7.Models;
 
@@ -11,9 +12,11 @@ using WebApplication7.Models;
 namespace WebApplication7.Migrations
 {
     [DbContext(typeof(DepiContext))]
-    partial class DepiContextModelSnapshot : ModelSnapshot
+    [Migration("20241019005510_Fainal12")]
+    partial class Fainal12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -451,30 +454,6 @@ namespace WebApplication7.Migrations
                     b.ToTable("Review");
                 });
 
-            modelBuilder.Entity("WebApplication7.Models.WishList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("PlaceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlaceId");
-
-                    b.HasIndex("UserID");
-
-                    b.ToTable("wishLists");
-                });
-
             modelBuilder.Entity("WebApplication7.Models.Admin", b =>
                 {
                     b.HasBaseType("WebApplication7.Models.ApplicationUser");
@@ -625,25 +604,6 @@ namespace WebApplication7.Migrations
                     b.HasOne("WebApplication7.Models.User", "user")
                         .WithMany()
                         .HasForeignKey("User_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("place");
-
-                    b.Navigation("user");
-                });
-
-            modelBuilder.Entity("WebApplication7.Models.WishList", b =>
-                {
-                    b.HasOne("WebApplication7.Models.Place", "place")
-                        .WithMany()
-                        .HasForeignKey("PlaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApplication7.Models.User", "user")
-                        .WithMany()
-                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

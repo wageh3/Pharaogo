@@ -12,24 +12,26 @@ namespace WebApplication7.Controllers
         private readonly IPlace _home;
         private readonly IReview _review;
         private readonly IUser _user;
+        private readonly IWishList _wishListRepository;
         private readonly ILogger<HomeController> _logger;
         
         DepiContext context;
         // Combine both dependencies into one constructor
-        public HomeController(IPlace home, IReview review, ILogger<HomeController> logger, DepiContext _context, IUser user)
+        public HomeController(IPlace home, IReview review, ILogger<HomeController> logger, DepiContext _context, IUser user, IWishList wishListRepository)
         {
             _home = home;
             _review = review;
             _logger = logger;
             context = _context;
             _user = user;
+            _wishListRepository = wishListRepository;
         }
         public IActionResult Index()
         {
+            var places = _home.GetAll();
+            return View(places);
+        }
 
-			var p = _home.GetAll();
-			return View(p);
-		}
         public IActionResult Header_Museums()
         {
 
@@ -117,6 +119,23 @@ namespace WebApplication7.Controllers
             PlaceViewModel pp = new PlaceViewModel();
             pp = _review.Getinfo(id);
             return View("GetPlace",pp);
+        }
+        public IActionResult FavouritePlace(int id)
+        {
+            _wishListRepository.Add(id, User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeleteWish(int id)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _wishListRepository.Delete(id, userId);
+            return RedirectToAction("WishList", new { id = userId });
+        }
+
+        public IActionResult WishList(string id)
+        {
+            var wishlistItems = _wishListRepository.Getwish(id);
+            return View("WishList", wishlistItems);
         }
     }
 }

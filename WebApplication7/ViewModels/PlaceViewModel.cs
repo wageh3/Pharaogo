@@ -12,8 +12,8 @@ namespace WebApplication7.ViewModels
         public string? Review { get; set; }
         public List<Review>? review { get; set; }
        public List<User>? user { get; set; }
-        
-        
+        public string? Message { get; set; }
+
 
     }
 }

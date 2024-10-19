@@ -20,6 +20,7 @@ namespace WebApplication7.Models
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Review> Review { get; set; }
         public DbSet<Contact_Us> contact_us { get; set; }
+        public DbSet<WishList> wishLists { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            

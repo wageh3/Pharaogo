@@ -34,18 +34,18 @@
                             <div class="star-rating">
                                 @for (int i = 1; i <= 5; i++)
                                 {
-                                    int temp;
+                                   int temp;
 
-                                    if (int.TryParse(@Model.SpecificPlace.Place_Rating, out temp))
-                                    {
-                                        // Parsing successful, use temp
-                                        temp = Convert.ToInt32(@Model.SpecificPlace.Place_Rating);
-                                    }
-                                    else
-                                    {
-                                        // Handle invalid format case
-                                        temp = 0;
-                                    }
+                if (int.TryParse(item.Place_Rating, out temp))
+                {
+                    // Parsing successful, use temp
+                    temp = Convert.ToInt32(item.Place_Rating);
+                }
+                else
+                {
+                    // Handle invalid format case
+                    temp = 0;
+                }
                                     if (i <= (temp))
                                     {
                                         <!-- Full star for each whole number -->
@@ -97,7 +97,7 @@
      
         <script>
             function favoritePlace(placeId) {
-                window.location.href = '/Home/FavoritePlace/' + placeId;
+            window.location.href = '/Home/FavouritePlace/' + placeId;
                 }
         </script>
      
