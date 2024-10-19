@@ -107,8 +107,12 @@
                     <li>
                         @if (User.Identity.IsAuthenticated == true)
                         {
-                        <li><a href="/User/Edit">Profile</a></li>
-                        <li><a href="/Home/WishList?id=@User.FindFirstValue(ClaimTypes.NameIdentifier)">WishList</a></li>
+                            <li><a href="/User/Edit">Profile</a></li>
+                            if (User.IsInRole("Visitor"))
+                            {
+                            <li><a href="/Home/WishList?id=@User.FindFirstValue(ClaimTypes.NameIdentifier)">WishList</a></li>
+                            }
+                            
                         <a href="/Account/Logout">Logout</a>
                         }
                     </li>
