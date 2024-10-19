@@ -38,89 +38,53 @@ namespace DEPI.Controllers
             return View(placesList);
         }
 
-        [HttpGet]
-        public IActionResult AddPlace()
-        {
-            return View();
-        }
+        //[HttpGet]
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult SavePlace(Place place)
-        {
-            if (ModelState.IsValid)
-            {
-                //if (place.ImageFile != null)
-                //{ 
-                //    string filePath = _upload.UploadFile("\\Images\\Place_Photo\\", place.ImageFile);
-                //    if (!string.IsNullOrEmpty(filePath))
-                //    {
-                //        place.Place_Photo = filePath;
-                //    }
-                //    else
-                //    {
-                //        ModelState.AddModelError("", "File upload failed");
-                //        return View("AddPlace", place);
-                //    }
-                //}
-                if (place.clientFile != null)
-                {
-                    MemoryStream stream = new MemoryStream();
-                    place.clientFile.CopyTo(stream);
-                    place.dbimage = stream.ToArray();
-                }
+        //[HttpGet]
+        //public IActionResult Details(int id)
+        //{
+        //    var place = _placeRepository.Get(id);
+        //    if (place == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-                _placeRepository.Add(place);
-                return RedirectToAction(nameof(Index));
-            }
+        //    return View(place);
+        //}
+        //[HttpGet]
+        //public IActionResult Edit(int id)
+        //{
+        //    var place = _placeRepository.Get(id);
+        //    if (place == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View("AddPlace", place);
-        }
-        [HttpGet]
-        public IActionResult Details(int id)
-        {
-            var place = _placeRepository.Get(id);
-            if (place == null)
-            {
-                return NotFound();
-            }
+        //    return View(place);
+        //}
 
-            return View(place);
-        }
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            var place = _placeRepository.Get(id);
-            if (place == null)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult SaveEdit(PlaceViewModel updatedPlace)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var existingPlace = _placeRepository.Get(updatedPlace.SpecificPlace.Place_Id);
+        //        if (existingPlace == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        _placeRepository.Edit(updatedPlace);
+        //        return RedirectToAction(nameof(Index));
+        //    }
 
-            return View(place);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult SaveEdit(PlaceViewModel updatedPlace)
-        {
-            if (ModelState.IsValid)
-            {
-                var existingPlace = _placeRepository.Get(updatedPlace.SpecificPlace.Place_Id);
-                if (existingPlace == null)
-                {
-                    return NotFound();
-                }
-                _placeRepository.Edit(updatedPlace);
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View("Edit", updatedPlace);
-        }
-        public IActionResult Delete(int id)
-        {
-            _placeRepository.Delete(id);
-            return RedirectToAction("Index");
-        }
+        //    return View("Edit", updatedPlace);
+        //}
+        //public IActionResult Delete(int id)
+        //{
+        //    _placeRepository.Delete(id);
+        //    return RedirectToAction("Index");
+        //}
 
 
         [HttpGet]

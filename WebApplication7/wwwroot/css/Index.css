@@ -61,12 +61,15 @@
 }
 
 .cta-button {
-    padding: 1rem 2rem;
-    background-color: #ff6700;
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-    border-radius: 30px;
+    display: inline-block;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+    background-color: #d5c188;
+    border-color: #d5c188;
 }
 
     .cta-button:hover {
@@ -203,3 +206,24 @@
     .hotel-card:hover .heart-icon {
         opacity: 1; /* Make the heart icon fully opaque when hovering over the card */
     }
+.star-rating {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.full-star, .empty-star, .half-star {
+    font-size: 1.5rem;
+    color: gold;
+}
+
+.half-star {
+    color: lightgray;
+}
+
+.rating-number {
+    margin-left: 8px;
+    font-size: 1rem;
+    color: #333;
+}

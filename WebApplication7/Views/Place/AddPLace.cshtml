@@ -2,7 +2,7 @@
 
 <h1>New Place</h1>
 <div>
-    <form asp-action="SavePlace" method="post" enctype="multipart/form-data">
+    <form asp-action="SavePlace" asp-controller="Place" method="post" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
 
         <div class="form-group">

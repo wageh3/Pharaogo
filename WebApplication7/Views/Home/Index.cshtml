@@ -57,7 +57,7 @@
                 <span class="nav-label">Hotels</span>
             </a>
         <a href="#" onclick="GetData('Museums')" class="nav-item">
-                <span class="nav-icon"><img src="/Image/icons8-pharaoh-60.png" alt="Alternate Text" style="width: 24px; height: 24px; object-fit: contain; display: inline-block; " /></span>
+                <span class="nav-icon"><img src="/Images/icons8-pharaoh-60.png" alt="Alternate Text" style="width: 24px; height: 24px; object-fit: contain; display: inline-block; " /></span>
             <span class="nav-label">Museum</span>
         </a>
         
@@ -65,7 +65,7 @@
     </nav>
 
     @* <section class="hotel-listings "> *@
-        <div id="PlaceDetails">
+     <div id="PlaceDetails">
         <section class="hotel-listings ">
 
             @foreach (var item in Model.RelatedPlaces)
@@ -134,29 +134,6 @@
                                         
                                         <span class="rating-number">(@item.Place_Rating)</span>
                                     </div>
-                                    <style>
-                                        .star-rating {
-                                            justify-content: center;
-                                            display: flex;
-                                            align-items: center;
-                                            margin-bottom: 10px;
-                                        }
-
-                                        .full-star, .empty-star, .half-star {
-                                            font-size: 1.5rem;
-                                            color: gold;
-                                        }
-
-                                        .half-star {
-                                            color: lightgray;
-                                        }
-
-                                        .rating-number {
-                                            margin-left: 8px;
-                                            font-size: 1rem;
-                                            color: #333;
-                                        }
-                                    </style>
                                     <p><span class="new-price">Price: @item.Place_Price EGP</span></p>
                                 </div>
                             </div>
@@ -167,11 +144,30 @@
         
         </section>
 
-        </div>
-    
+     </div>
+    <style>
+        .star-rating {
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
- 
- 
+        .full-star, .empty-star, .half-star {
+            font-size: 1.5rem;
+            color: gold;
+        }
+
+        .half-star {
+            color: lightgray;
+        }
+
+        .rating-number {
+            margin-left: 8px;
+            font-size: 1rem;
+            color: #333;
+        }
+    </style>
 </body>
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
