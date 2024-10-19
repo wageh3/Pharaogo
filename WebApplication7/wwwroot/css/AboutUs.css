@@ -2,44 +2,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full height for vertical centering */
-    padding-top: 0px; /* Adjusted padding-top for more space */
+    height: 100vh;
+    padding-top: 0px;
 }
 
 .container {
     text-align: center;
-    width: 90%; /* Adjust width as needed */
-    max-width: 1000px; /* Increased max width for larger content */
+    width: 90%; 
+    max-width: 1000px;
 }
 
-img {
-    width: 300px; /* Increased size */
+.aboutimg {
+    width: 300px;
     height: auto;
 }
 
-h1 {
-    font-size: 3rem; /* Increased font size for the title */
+.aboutheader h1 {
+    font-size: 3rem;
     margin-top: 20px;
 }
 
-p {
+.about p {
     font-family: Arial, sans-serif;
-    font-size: 1.25rem; /* Larger font size */
+    font-size: 1.25rem;
     line-height: 1.8;
     color: #333;
     margin-top: 10px;
 }
 
-ul {
-    text-align: left; /* Align list items to the left */
-    display: inline-block; /* Keep the list inline within the centered text */
-    margin: 20px 0;
-}
-
-li {
-    margin-bottom: 10px;
-}
-
-strong {
-    font-size: 1.5rem; /* Larger font size for section titles */
+.about strong {
+    font-size: 1.5rem;
 }

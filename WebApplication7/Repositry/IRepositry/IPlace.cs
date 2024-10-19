@@ -9,8 +9,8 @@ namespace WebApplication7.Repositry.IRepositry
        public PlaceViewModel GetAllMuseum();
         public PlaceViewModel GetAllHotels();
         public PlaceViewModel Get(int id); 
-        public Place GetById(int id); 
-        
+        public Place GetById(int id);
+        public void updaterate(Place place, int rating);
         public void Add(Place place);
         public void Edit(PlaceViewModel place);
         public void Delete(int id);
