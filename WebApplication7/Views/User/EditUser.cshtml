@@ -7,78 +7,18 @@
     Model.Id = h;
 }
 
-@* <div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditUser" enctype="multipart/form-data">
-            <div class="form-row">
-                <!-- Username Field -->
-                <div class="form-group col-md-6">
-                    <label asp-for="UserName" class="control-label" style="color:white">Username</label>
-                    <input asp-for="UserName" class="form-control" placeholder="Enter your username" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
-                </div>
-
-                <!-- Password Field -->
-                <div class="form-group col-md-6">
-                    <label asp-for="Password" class="control-label" style="color:white">Password</label>
-                    <input asp-for="Password" class="form-control" placeholder="Enter your password" type="password" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-            </div>
-
-            <!-- Email Field -->
-            <div class="form-group col-md-6">
-                <label asp-for="Email" class="control-label" style="color:white">Email</label>
-                <input asp-for="Email" class="form-control" placeholder="Enter your email" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-
-            <!-- Address Field -->
-            <div class="form-group col-md-6">
-                <label asp-for="Addresss" class="control-label" style="color:white">Address</label>
-                <input asp-for="Addresss" class="form-control" placeholder="1234 Main St" />
-                <span asp-validation-for="Addresss" class="text-danger"></span>
-            </div>
-
-            <!-- Profile Picture Upload -->
-            <div class="form-group col-md-6">
-                <label asp-for="Image" class="control-label" style="color:white">Profile Picture</label>
-                <input asp-for="Image" type="file" id="imageInput" class="form-control" />
-                <output></output>
-
-                <!-- Conditional Image Display -->
-                @if (!string.IsNullOrEmpty(Model.urll))
-                {
-                    <img id="selectedImage" src="/img/@Model.Image" alt="Selected Image" style="max-width: 200px; margin-top: 10px; display: block;" />
-                }
-                else
-                {
-                    <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 200px; margin-top: 10px; display: none;" />
-                }
-            </div>
-
-            <!-- Submit Button -->
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div> *@
 <link href="/css/UserEdit.css" rel="stylesheet" />
 <form asp-action="EditUser" enctype="multipart/form-data" method="post" class="">
     <div class="profile-section">
         <div class="profile-card">
-            <h4>@Model.UserName</h4>
+            <h3>@Model.UserName</h3>
 
             <p>Account</p>
             <ul class="profile-nav">
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Notifications</a></li>
             </ul>
         </div>
 
         <div class="form-section">
-            <h5>Profile Details</h5>
             <div class="row">
                 <div class="col">
                     <label asp-for="UserName" class="form-label">First Name</label>

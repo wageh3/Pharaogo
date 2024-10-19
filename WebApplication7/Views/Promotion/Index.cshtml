@@ -47,7 +47,7 @@
                             <input asp-for="Discount_Amount" class="form-control" type="number" placeholder="Enter discount amount" />
                             <span asp-validation-for="Discount_Amount" class="text-danger"></span>
                         </div>
-                        <button type="submit" class="btn btn-dark">Add Promotion</button>
+                        <button type="submit" class="btn btn-Primary">Add Promotion</button>
                     </form>
                 </div>
             </div>
@@ -79,7 +79,14 @@
             vertical-align: middle;
         }
 
-    .btn {
-        margin-top: 10px;
+    .btn-primary {
+        background-color: #d5c188;
+        border-color: #d5c188;
+        transition: background-color 0.3s, border-color 0.3s;
     }
+
+        .btn-primary:hover {
+            background-color: #a59056;
+            border-color: #a59056;
+        }
 </style>
