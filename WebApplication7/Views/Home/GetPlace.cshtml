@@ -207,7 +207,7 @@
 <link href="/wwwroot/css/Review.css" rel="stylesheet">
 
 <h3 class="reviews-title">People Reviews</h3>
-<div class="reviews-container">
+<div class="reviews-container" id="review">
     @foreach (var item in Model.review)
     {
         <div class="review-item">
@@ -264,12 +264,12 @@
 </style>
 @if (User.Identity.IsAuthenticated == true)
 {
-    
-    <form asp-action="GetUserId" asp-route-PlaceId="@Model.SpecificPlace.Place_Id" asp-route-Review="@Model.Review" class="review-form">
+
+    <form asp-action="AddReview" asp-route-PlaceId="@Model.SpecificPlace.Place_Id" asp-route-Review="@Model.Review" class="review-form">
         <div class="form-group">
             <textarea asp-for="Review" class="form-control review-textarea"></textarea>
         </div>
-        <button type="submit" class="cta-button review-button">Send Review</button>
+        <button type="submit" class="cta-button review-button" >Send Review</button>
     </form>
 
 }

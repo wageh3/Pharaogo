@@ -48,7 +48,7 @@ namespace WebApplication7.Controllers
         public IActionResult EditUser(RegisterViewModel s)
         {
             user_repo.UpdateUser(s);
-            return RedirectToAction("Index", "Home");
+            return View(s);
         }
         public IActionResult Delete()
         {
@@ -57,12 +57,12 @@ namespace WebApplication7.Controllers
         }
         public IActionResult DeleteUser(string id)
         {
-            // Delete the user from the database
+            
             user_repo.DeleteUser(id);
             signInManager.SignOutAsync();
-            // Set a success message to be displayed
+          
             TempData["SuccessMessage"] = "The user has been successfully deleted.";
-            // Redirect to the Index action
+          
             return RedirectToAction("Index", "Home");
         }
     }

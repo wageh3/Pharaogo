@@ -174,9 +174,9 @@
         function GetData(name) {
             event.preventDefault();
             $.ajax({
-                url: "/Home/" + name, // Assuming this route handles fetching all students
-                success: function (result) { // json or HTML
-                    // Assuming 'result' contains the list of students in HTML format
+                url: "/Home/" + name, 
+                success: function (result) { 
+                    
                     document.getElementById("PlaceDetails").innerHTML = result;
                 },
                 error: function (xhr, status, error) {

@@ -60,33 +60,29 @@ namespace WebApplication7.Controllers
         {
             return View();
         }
-        public IActionResult GetUserId(int PlaceId ,string Review) 
-        {
-            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return RedirectToAction("AddReview", new { id = id, placeid=PlaceId ,review = Review });
-        }
-        public IActionResult AddReview(string id, int PlaceId, string Review)
+
+        public IActionResult AddReview(int PlaceId, string Review)
         {
             if (string.IsNullOrEmpty(Review))
             {
                 ViewBag.ErrorMessage = "Review cannot be empty.";
-                return View(_review);
+                return RedirectToAction("GetReviews", new { PlaceId = PlaceId });
             }
-            DepiContext context = new DepiContext();
-            var obj=_user.GetUser(id);
-            string UserName="UnKnown";
-            if (obj != null)
-            {
 
-                UserName = obj;
-               
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(id))
+            {
+                // Handle case where user is not authenticated
+                ViewBag.ErrorMessage = "User is not authenticated.";
+                return RedirectToAction("Login");
             }
-            string user_id = id;
-            _review.Add(user_id, PlaceId, Review,UserName);
-            
-                return RedirectToAction("GetReviews", new { username = UserName, PlaceId = PlaceId, id = id });
-            
+
+            var userName = _user.GetUser(id) ?? "Unknown"; // Ensure non-null value for userName
+            _review.Add(id, PlaceId, Review, userName);
+
+            return RedirectToAction("GetReviews", new { PlaceId = PlaceId });
         }
+
         public IActionResult GetReviews(string username ,string id, int PlaceId)
         {
             var p = _review.Getinfo(PlaceId);
@@ -122,7 +118,8 @@ namespace WebApplication7.Controllers
         }
         public IActionResult FavouritePlace(int id)
         {
-            _wishListRepository.Add(id, User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var x = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _wishListRepository.Add(id, x);
             return RedirectToAction("Index");
         }
         public IActionResult DeleteWish(int id)
