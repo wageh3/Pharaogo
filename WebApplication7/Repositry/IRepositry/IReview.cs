@@ -8,5 +8,6 @@ namespace WebApplication7.Repositry.IRepositry
         public void Add(string id,int PlaceId, string msg,string name);
         public PlaceViewModel Getinfo(int id);
         public void Save();
+        public void Delete(int id);
     }
 }

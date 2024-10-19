@@ -83,45 +83,44 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="/Home/Index" class="active">Home<br></a></li>
+                    <li><a asp-action="Index" class="active">Home<br></a></li>
 
                     @* <li><a href="#team">Team</a></li> *@
                     @* <li><a href="blog.html">Blog</a></li> *@
                     <li class="dropdown">
                         <a href="#"><span>Places</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            <li><a href=" /Home/Header_Hotels">Hotels</a></li>
+                            <li><a asp-action="Header_Hotels">Hotels</a></li>
 
-                            <li><a href=" /Home/Header_Museums">Musuems</a></li>
-
+                            <li><a asp-action="Header_Museums">Musuems</a></li>
                         </ul>
                     </li>
 
-                    <li><a href="#">About Us</a></li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a href="#" onclick="">Contact</a></li>
-                        
-                    }
- 
-                    <li>
-                        @if (User.Identity.IsAuthenticated == true)
+                    <li><a asp-action="AboutUs">About Us</a></li>            
+                    <li class="dropdown">
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <li><a href="/User/Edit">Profile</a></li>
-                            if (User.IsInRole("Visitor"))
-                            {
-                            <li><a href="/Home/WishList?id=@User.FindFirstValue(ClaimTypes.NameIdentifier)">WishList</a></li>
-                            }
-                            
-                        <a href="/Account/Logout">Logout</a>
+                            <a href="#" class="settings-icon" onclick="toggleDropdown(event)">
+                                <img src="~/Images/settings.png" width="20px" />
+                                <i class="bi bi-chevron-down toggle-dropdown"></i>
+                            </a>
+                            <ul>
+                                <li><a href="/User/Edit">Profile</a></li>
+                                @if (User.IsInRole("Visitor"))
+                                {
+                                    <li><a href="/Home/WishList?id=@User.FindFirstValue(ClaimTypes.NameIdentifier)">WishList</a></li>
+                                }
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><a href="/Admin/Index">Settings</a></li>
+                                }
+                                <li><a href="/Account/Logout">Logout</a></li>
+                            </ul>
                         }
                     </li>
 
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li><a href="/Admin/Index">Settings</a></li>
-                    }
-                </ul>
+
+                    </ul>
             </nav>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
            
@@ -130,18 +129,22 @@
 
             <form class="d-flex" asp-controller="Search" asp-action="Index" method="get">
                 <input class="form-control mr-2" type="search" name="searchQuery" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" name="search_icon" type="submit" >Search</button>
+                <button class="btn btn-outline" name="search_icon" type="submit" >Search</button>
             </form>
             <style>
-                .search_icon{
-                    color:#ffffff;
+                .btn-outline {
+                    color: #a59056;
+                    border-color: white;
+                    background-color: white;
                 }
-                .search_icon :hover{
-                    background-color: #a59056;
-                   
-                }
-            </style>
 
+                    .btn-outline:hover {
+                        color: white;
+                        border-color: a59056;
+                        background-color: a59056;
+                    }
+            </style>
+           
         </div>
     </header>
     @*  <style>
@@ -177,11 +180,10 @@
                     </div>
 
                     <div class="col-lg-2 col-md-3 footer-links">
-                        <h4>Useful Links</h4>
                         <ul>
-                            <li><a href="/Home/Index">Home</a></li>
-                            <li><a href="#">About us</a></li>
-                            <li><a href="/Home/Index">Places</a></li>
+                            <li><a asp-action="Index">Home</a></li>
+                            <li><a asp-action="AboutUs">About us</a></li>
+                            <li><a asp-action="Index">Places</a></li>
 
 
                         </ul>
@@ -190,8 +192,9 @@
                     <div class="col-lg-2 col-md-3 footer-links">
                         <h4>Our Services</h4>
                         <ul>
-                            <li><a href="/Home/Museums">Museums</a></li>
-                            <li><a href="/Home/Hotels">Hotels</a></li>
+                            <li><a asp-action="Header_Museums">Musuems</a></li>
+                            <li><a asp-action="Header_Hotels">Hotels</a></li>
+
 
                         </ul>
                     </div>

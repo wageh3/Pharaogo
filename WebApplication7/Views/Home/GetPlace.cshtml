@@ -212,8 +212,12 @@
     {
         <div class="review-item">
             <p class="" style="font:bold">@item.UserName</p>
-  
+            
             <p class="review-comment">@item.Comment</p>
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-action="DeleteReview" asp-route-id="@item.Review_Id" asp-route-placeid="@Model.SpecificPlace.Place_Id">Delete</a>
+            }
         </div>
     }
 </div>

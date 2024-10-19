@@ -90,6 +90,15 @@ namespace WebApplication7.Controllers
             ViewBag.UserNamee = username;
             return View("GetPlace", p);
         }
+        public IActionResult DeleteReview(int id,int placeid)
+        {
+
+            
+                _review.Delete(id);
+            return RedirectToAction("GetPlace", new {id=placeid });
+
+
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -133,6 +142,10 @@ namespace WebApplication7.Controllers
         {
             var wishlistItems = _wishListRepository.Getwish(id);
             return View("WishList", wishlistItems);
+        }
+        public IActionResult AboutUs()
+        {
+            return View();
         }
     }
 }
