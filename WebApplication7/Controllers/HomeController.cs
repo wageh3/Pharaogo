@@ -90,15 +90,13 @@ namespace WebApplication7.Controllers
             ViewBag.UserNamee = username;
             return View("GetPlace", p);
         }
-        public IActionResult DeleteReview(int id)
+        public IActionResult DeleteReview(int id,int placeid)
         {
 
-           /* var Place=context.Places.FirstOrDefault(x=)
-                _review .Delete(id);*/
-            return RedirectToAction("GetReviews", new {id=id});
-
             
-           // return View();
+                _review.Delete(id);
+            return RedirectToAction("GetPlace", new {id=placeid });
+
 
         }
 
@@ -144,6 +142,10 @@ namespace WebApplication7.Controllers
         {
             var wishlistItems = _wishListRepository.Getwish(id);
             return View("WishList", wishlistItems);
+        }
+        public IActionResult AboutUs()
+        {
+            return View();
         }
     }
 }

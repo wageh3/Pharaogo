@@ -75,11 +75,15 @@
                     <!-- Transparent button for the heart icon, hidden initially -->
                     @if (User.Identity.IsAuthenticated == true)
                     {
-                        <div class="heart-icon">
-                            <button type="button" class="heart-btn" onclick="favoritePlace(@item.Place_Id);">
-                                <img src="/Images/heart.png" alt="Heart Icon" />
-                            </button>
-                        </div>
+                        @if (!User.IsInRole("Admin"))
+                        {
+                            <div class="heart-icon">
+                                <button type="button" class="heart-btn" onclick="favoritePlace(@item.Place_Id);">
+                                    <img src="/Images/heart.png" alt="Heart Icon" />
+                                </button>
+                            </div>
+                        }
+                        
                     }
                     <!-- The large clickable card -->
                     <a asp-action="GetPlace" asp-controller="Home" asp-route-id="@item.Place_Id">
