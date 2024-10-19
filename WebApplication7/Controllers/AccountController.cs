@@ -1,29 +1,29 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using WebApplication7.Controllers;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WebApplication7.Models;
 using WebApplication7.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
 
 namespace WebApplication7.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
-            IWebHostEnvironment webHostEnvironment, RoleManager<IdentityRole> roleManager)
+
+
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> _signInManager, IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
+            signInManager = _signInManager;
             _webHostEnvironment = webHostEnvironment;
-            _roleManager = roleManager;
-        }
 
+
+        }
         [HttpGet]
         public IActionResult Register()
         {
@@ -33,36 +33,31 @@ namespace WebApplication7.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel Userrvm)
         {
+
             if (ModelState.IsValid)
             {
+                // Check if the email already exists
                 var existingUser = await _userManager.FindByEmailAsync(Userrvm.Email);
                 if (existingUser != null)
                 {
                     ModelState.AddModelError("Email", "Email is already taken.");
                     return View(Userrvm);
                 }
+                User userModel = new User();
+                userModel.UserName = Userrvm.UserName;
+                userModel.PasswordHash = Userrvm.Password;
+                userModel.Email = Userrvm.Email;
+                //if (Userrvm.Image != null)
+                //{
+                //	var unfile = ImageSaver.SaveImage(Userrvm.Image, _webHostEnvironment);
+                //	userModel.ImageUrl = unfile.Result;
 
-                ApplicationUser userModel = new ApplicationUser
-                {
-                    UserName = Userrvm.UserName,
-                    Email = Userrvm.Email
-                };
 
+                //}
                 IdentityResult result = await _userManager.CreateAsync(userModel, Userrvm.Password);
 
-                if (result.Succeeded)
+                if (result.Succeeded == true)
                 {
-                    // Ensure roles exist before assigning
-                    if (!await _roleManager.RoleExistsAsync("Admin"))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole("Admin"));
-                    }
-
-                    if (!await _roleManager.RoleExistsAsync("Visitor"))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole("Visitor"));
-                    }
-
                     if (Userrvm.Email == "admiin@gmail.com")
                     {
                         await _userManager.AddToRoleAsync(userModel, "Admin");
@@ -72,8 +67,14 @@ namespace WebApplication7.Controllers
                         await _userManager.AddToRoleAsync(userModel, "Visitor");
                     }
 
-                    await _signInManager.SignInAsync(userModel, isPersistent: false);
+
+                    //Create Cookie
+
+                    await signInManager.SignInAsync(userModel, isPersistent: false);
+
+
                     return RedirectToAction("Index", "Home");
+
                 }
                 else
                 {
@@ -85,45 +86,56 @@ namespace WebApplication7.Controllers
             }
             return View(Userrvm);
         }
-
         [HttpGet]
+
         public IActionResult Login()
         {
+
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
             if (ModelState.IsValid)
             {
+                // Find user by email
                 ApplicationUser user = await _userManager.FindByEmailAsync(loginViewModel.Email);
 
                 if (user != null)
                 {
+                    // Check if the password is correct
                     bool found = await _userManager.CheckPasswordAsync(user, loginViewModel.Password);
                     if (found)
                     {
-                        await _signInManager.SignInAsync(user, loginViewModel.RememberMe);
+                        // Sign in the user using SignInManager
+                        await signInManager.SignInAsync(user, loginViewModel.RememberMe);
+
+                        // Redirect to the home page after login
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
+                        // Password is incorrect
                         ModelState.AddModelError("Password", "Your password is incorrect.");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("Email", "User does not exist.");
+                    // User does not exist
+                    ModelState.AddModelError("", "User does not exist.");
                 }
             }
+
+            // If ModelState is not valid, return the view with errors
             return View(loginViewModel);
         }
 
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }
