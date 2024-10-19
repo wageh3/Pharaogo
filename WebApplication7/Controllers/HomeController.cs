@@ -14,15 +14,11 @@ namespace WebApplication7.Controllers
         private readonly IUser _user;
         private readonly IWishList _wishListRepository;
         private readonly ILogger<HomeController> _logger;
-        
-        DepiContext context;
-        // Combine both dependencies into one constructor
-        public HomeController(IPlace home, IReview review, ILogger<HomeController> logger, DepiContext _context, IUser user, IWishList wishListRepository)
+        public HomeController(IPlace home, IReview review, ILogger<HomeController> logger, IUser user, IWishList wishListRepository)
         {
             _home = home;
             _review = review;
             _logger = logger;
-            context = _context;
             _user = user;
             _wishListRepository = wishListRepository;
         }
@@ -48,12 +44,14 @@ namespace WebApplication7.Controllers
             p = _review.Getinfo(id);
             return View(p);
         }
-        public IActionResult Museums() {
-          
+        public IActionResult Museums()
+        {
+
             return PartialView("Details", _home.GetAllMuseum());
         }
-        public IActionResult Hotels() {
-          
+        public IActionResult Hotels()
+        {
+
             return PartialView("Details", _home.GetAllHotels());
         }
         public IActionResult Privacy()
@@ -108,19 +106,14 @@ namespace WebApplication7.Controllers
         public IActionResult UpdateRate(int id, int rating)
 
         {
-            Place p = _home.GetById(id);
+            Place place = _home.GetById(id);
             decimal temp;
-            if (p == null)
+            if (place == null)
             {
                 
                 return NotFound();
             }
-            p.cnt = p.cnt + 1;
-            p.SumOfRates = p.SumOfRates + rating;
-            context.SaveChanges();
-            temp = p.SumOfRates / p.cnt;
-            p.Place_Rating = temp.ToString();
-            context.SaveChanges();
+            _home.updaterate(place, rating);
             PlaceViewModel pp = new PlaceViewModel();
             pp = _review.Getinfo(id);
             return View("GetPlace",pp);

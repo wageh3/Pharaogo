@@ -83,20 +83,20 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a asp-action="Index" class="active">Home<br></a></li>
+                    <li><a asp-action="Index" asp-controller="Home" class="active">Home<br></a></li>
 
                     @* <li><a href="#team">Team</a></li> *@
                     @* <li><a href="blog.html">Blog</a></li> *@
                     <li class="dropdown">
                         <a href="#"><span>Places</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
-                            <li><a asp-action="Header_Hotels">Hotels</a></li>
+                            <li><a asp-action="Header_Hotels" asp-controller="Home">Hotels</a></li>
 
-                            <li><a asp-action="Header_Museums">Musuems</a></li>
+                            <li><a asp-action="Header_Museums" asp-controller="Home">Musuems</a></li>
                         </ul>
                     </li>
 
-                    <li><a asp-action="AboutUs">About Us</a></li>            
+                    <li><a asp-action="AboutUs" asp-controller="Home">About Us</a></li>
                     <li class="dropdown">
                         @if (User.Identity.IsAuthenticated)
                         {

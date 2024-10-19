@@ -52,7 +52,16 @@ namespace WebApplication7.Repositry
             _context.Places.Add(place);
              Save();
         }
-
+        public void updaterate(Place place, int rating)
+        {
+            decimal temp;
+            place.cnt = place.cnt + 1;
+            place.SumOfRates = place.SumOfRates + rating;
+            Save();
+            temp = place.SumOfRates / place.cnt;
+            place.Place_Rating = temp.ToString();
+            Save();
+        }
         public void Edit(PlaceViewModel place)
         {
             var existingPlace = _context.Places.Find(place.SpecificPlace.Place_Id);
