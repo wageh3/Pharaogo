@@ -1,6 +1,8 @@
-﻿.star-rating {
+﻿/* Star Rating */
+.star-rating {
     display: flex;
     align-items: center;
+    gap: 5px; /* Consistent gap between stars */
     margin-bottom: 10px;
 }
 
@@ -18,6 +20,8 @@
     font-size: 1rem;
     color: #333;
 }
+
+/* Rating Box */
 .rating-box {
     background: linear-gradient(135deg, #f7f7f7, #e2e2e2);
     padding: 30px;
@@ -25,7 +29,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 400px;
-    margin: 0 auto;
+    margin: 20px auto; /* Added margin for spacing */
     transition: transform 0.3s;
 }
 
@@ -35,10 +39,10 @@
 
 /* Heading */
 h2 {
-    font-family: 'Arial', sans-serif;
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
+    text-align: center; /* Center the heading */
 }
 
 /* Rating Form */
@@ -48,36 +52,31 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* Star Rating */
-.star-rating {
-    display: flex;
-    gap: 5px;
+/* Star Rating Label */
+.star-rating input {
+    display: none;
 }
 
-    .star-rating input {
-        display: none;
+.star-rating label {
+    font-size: 2.5rem;
+    color: #ccc;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+    .star-rating label:hover,
+    .star-rating input:checked ~ label {
+        color: #ffd700;
     }
 
-    .star-rating label {
-        font-size: 2.5rem;
-        color: #ccc;
-        cursor: pointer;
-        transition: transform 0.2s ease, color 0.2s ease;
-    }
+.star-rating input:checked + label,
+.star-rating input:hover + label {
+    transform: scale(1.2);
+    color: #ffac33;
+}
 
-        .star-rating label:hover,
-        .star-rating input:checked ~ label {
-            color: #ffd700;
-        }
-
-    .star-rating input:checked + label,
-    .star-rating input:hover + label {
-        transform: scale(1.2);
-        color: #ffac33;
-    }
-
-/* Submit Button */
-.btn-primary {
+/* Button Styles */
+.btn-primary, .cta-button {
     display: inline-block;
     padding: 10px 15px;
     border: none;
@@ -89,19 +88,18 @@ h2 {
     border-color: #d5c188;
 }
 
-    .btn-primary:hover {
+    .btn-primary:hover, .cta-button:hover {
         background-color: #a59056;
-        cursor: pointer;
     }
 
 /* Rating Output */
 .rating-output {
-    font-family: 'Arial', sans-serif;
     font-size: 1.2rem;
     color: #444;
     margin-top: 10px;
 }
-/* Style the section title */
+
+/* Reviews Section */
 .reviews-title {
     font-size: 24px;
     color: #333;
@@ -110,30 +108,29 @@ h2 {
     font-weight: bold;
 }
 
-/* Style the container holding all reviews */
+/* Reviews Container */
 .reviews-container {
     max-width: 800px;
-    margin: 0 auto; /* Center the container */
+    margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Style individual review items */
+/* Review Item */
 .review-item {
-    background-color: #f1f1f1; /* Light background for the review item */
-    border-left: 4px solid #a59056; /* Left border for emphasis */
+    background-color: #f1f1f1;
+    border-left: 4px solid #a59056;
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
 }
 
-    /* Add a slight hover effect for better interaction feedback */
     .review-item:hover {
         transform: translateY(-5px);
     }
 
-/* Style the review comment text */
+/* Review Comment Text */
 .review-comment {
     font-size: 16px;
     color: #555;
@@ -141,9 +138,10 @@ h2 {
     margin: 0;
 }
 
-/* Responsive styling for smaller devices */
+/* Ad Container */
 .ad-container {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     background-color: white;
@@ -152,6 +150,25 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 900px;
     width: 100%;
+    margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .ad-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .text-container, .image-container {
+        max-width: 100%;
+    }
+
+
+    .hotel-listings {
+        flex-direction: column; /* Stack hotel cards vertically on small screens */
+        align-items: center; /* Center align hotel cards */
+    }
 }
 
 .text-container {
@@ -170,34 +187,13 @@ h2 {
         margin-bottom: 20px;
     }
 
-.cta-button {
-    display: inline-block;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s;
-    background-color: #d5c188;
-    border-color: #d5c188;
-}
-
-.cta-button:hover {
-    background-color: #a59056;
-}
-
-.image-container img {
-    max-width: 350px;
-    border-radius: 10px;
-}
-
-
+/* Hotel Listings */
 .hotel-listings {
-    display: flex; /* Use flexbox for horizontal layout */
-    flex-wrap: wrap; /* Allow wrapping to the next line if space runs out */
-    gap: 20px; /* Space between cards */
-    padding: 20px; /* Padding around the section */
-    justify-content: center; /* Center the cards in the container */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
 }
 
 .hotel-card {
@@ -206,26 +202,18 @@ h2 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     text-align: center;
-    flex: 1 1 300px; /* Allow cards to grow, shrink, and have a base width of 300px */
-    min-width: 250px; /* Minimum width for each card */
+    flex: 1 1 300px;
+    min-width: 250px;
 }
 
     .hotel-card img {
         width: 100%;
-        height: 150px; /* Fixed height for the image */
-        object-fit: cover; /* Cover the space without distortion */
+        height: 100px; /* Reduced height for a smaller image */
+        object-fit: cover;
     }
 
-.hotel-info {
-    padding: 15px; /* Padding inside the hotel info section */
+
+.image-container img {
+    max-width: 350px;
+    border-radius: 10px;
 }
-
-    .hotel-info h3 {
-        font-size: 18px; /* Font size for the place name */
-        margin-bottom: 8px; /* Space below the title */
-    }
-
-    .hotel-info .rating {
-        font-size: 14px; /* Font size for the rating */
-        color: #2c9c1a; /* Color for the rating */
-    }
