@@ -15,7 +15,15 @@ namespace WebApplication7.Repositry
         {
             dbContext = context;
         }
-
+        public void Delete(int id)
+        {
+            var review = dbContext.Review.Find(id);
+            if (review != null)
+            {
+                dbContext.Review.Remove(review);
+                Save();
+            }
+        }
         public void Add(string id ,int PlaceId, string msg,string username)
         {
             Review review = new Review();

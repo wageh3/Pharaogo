@@ -90,6 +90,17 @@ namespace WebApplication7.Controllers
             ViewBag.UserNamee = username;
             return View("GetPlace", p);
         }
+        public IActionResult DeleteReview(int id)
+        {
+
+           /* var Place=context.Places.FirstOrDefault(x=)
+                _review .Delete(id);*/
+            return RedirectToAction("GetReviews", new {id=id});
+
+            
+           // return View();
+
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
