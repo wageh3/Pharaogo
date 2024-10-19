@@ -27,7 +27,16 @@ namespace WebApplication7.Controllers
             var places = _home.GetAll();
             return View(places);
         }
+        public IActionResult Museums()
+        {
 
+            return PartialView("Details", _home.GetAllMuseum());
+        }
+        public IActionResult Hotels()
+        {
+
+            return PartialView("Details", _home.GetAllHotels());
+        }
         public IActionResult Header_Museums()
         {
 
