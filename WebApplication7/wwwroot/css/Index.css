@@ -268,3 +268,43 @@
     background-color: #e0e0e0; /* Active state background */
     color: #55190ed9; /* Active state text color */
 }
+button {
+   
+}
+
+    /* Log in button style */
+    button.login {
+        background-color: #d2b48c; /* Tan color */
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        button.login:hover {
+            background-color: #a59056; /* Dark goldenrod on hover */
+        }
+
+    /* Sign up button style */
+    button.signup {
+        background-color: transparent;
+        border: 2px solid white; /* Light blue border */
+        color: white; /* Light blue text */
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #ddd0a1;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        button.signup:hover {
+            background-color: #a59056;
+            color: white;
+        }
+
+/* Additional styling for buttons on a dark background */

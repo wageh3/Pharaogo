@@ -36,11 +36,12 @@
                     @if (User.Identity.IsAuthenticated == false)
                     {
                         <a href="/Account/Login">
-                            <button type="button" class="btn btn-lg btn-primary">Log in</button>
+                            <button class="login">Log in</button>
                         </a>
                         <a href="/Account/Register">
-                            <button type="button" class="btn btn-secondary btn-lg">Sign up</button>
+                            <button class="signup">Sign up</button>
                         </a>
+                       
                     }
                 </div>
 
