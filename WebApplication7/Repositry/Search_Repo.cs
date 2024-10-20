@@ -15,7 +15,7 @@ namespace WebApplication7.Repositry
 
         public List<Place> SearchPlaces(string searchQuery,double MaxPrice)
         {
-            if (string.IsNullOrEmpty(searchQuery) && MaxPrice == null)
+            if (string.IsNullOrEmpty(searchQuery) && MaxPrice == 0)
             {
                 return new List<Place>();
             }
@@ -23,7 +23,7 @@ namespace WebApplication7.Repositry
             {
                 return _context.Places.Where(x => x.Place_Price >= 0 && x.Place_Price <= MaxPrice).ToList();
             }
-            else if (!string.IsNullOrEmpty(searchQuery) && MaxPrice == null)
+            else if (searchQuery!=null && MaxPrice == 0)
             {
                 return _context.Places
               .Where(x => x.Place_Name.Contains(searchQuery) || x.Place_City.Contains(searchQuery))

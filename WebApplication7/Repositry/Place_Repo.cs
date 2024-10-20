@@ -36,7 +36,7 @@ namespace WebApplication7.Repositry
 
         public PlaceViewModel Get(int id)
         {
-            var relatedPlaces = _context.Places.Where(p => p.Place_Id != id).Take(4).ToList();
+            var relatedPlaces = _context.Places.Where(p => p.Place_Id != id).Take(8).ToList();
             var specificPlace = _context.Places.FirstOrDefault(x => x.Place_Id == id);
             var viewModel = new PlaceViewModel
             {
