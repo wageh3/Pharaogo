@@ -122,7 +122,7 @@ namespace WebApplication7.Controllers
                 else
                 {
                     // User does not exist
-                    ModelState.AddModelError("", "User does not exist.");
+                    ModelState.AddModelError("Email", "User does not exist.");
                 }
             }
 
