@@ -5,7 +5,7 @@ using WebApplication7.ViewModels;
 
 namespace WebApplication7.Controllers
 {
-	[Authorize(Roles = "Admin")]
+	
 
 	public class RoleController : Controller
     {

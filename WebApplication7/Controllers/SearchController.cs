@@ -7,22 +7,24 @@ using Microsoft.IdentityModel.Tokens;
 public class SearchController : Controller
 {
     private readonly DepiContext _context; // DbContext to interact with the database
-    IPlace home;
-    public SearchController(DepiContext context,IPlace tt)
+    ISearch _search;
+    public SearchController(DepiContext context, ISearch tt)
     {
         _context = context;
-        home = tt;
+        _search = tt;
     }
 
     [HttpGet]
-    public IActionResult Index(string searchQuery)
+    public IActionResult Index(string searchQuery,double MaxPrice)
     {
-         
-        var results = _context.Places.Where(x => x.Place_Name.Contains(searchQuery)).ToList();
-        if (string.IsNullOrEmpty(searchQuery) || results == null || results.IsNullOrEmpty())
+        var results = _search.SearchPlaces(searchQuery,MaxPrice);
+
+        if (results == null || !results.Any())
         {
             return View("NotFound");
         }
-        return View(results); 
+
+        return View(results);
     }
+
 }

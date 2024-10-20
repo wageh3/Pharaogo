@@ -32,6 +32,7 @@ namespace WebApplication7
             builder.Services.AddScoped<IUser, User_Repo>();
             builder.Services.AddScoped<IPromotion, Promotion_Repo>();
             builder.Services.AddScoped<IWishList, WishList_Repo>();
+            builder.Services.AddScoped<ISearch, Search_Repo>();
 
 
             var app = builder.Build();
