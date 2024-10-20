@@ -41,6 +41,11 @@ namespace WebApplication7.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SavePlace(Place place)
         {
+            var newplace = _placeRepository.GetByName(place.Place_Name);
+            if ( newplace!=null && newplace.Place_Type==place.Place_Type)
+            {
+                ModelState.AddModelError("Place_Name", "This Place is Already Exist");
+            }
             if (ModelState.IsValid)
             {
                 if (place.clientFile != null)

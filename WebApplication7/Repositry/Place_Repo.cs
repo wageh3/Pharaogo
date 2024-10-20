@@ -32,6 +32,10 @@ namespace WebApplication7.Repositry
         {
             return _context.Places.FirstOrDefault(x => x.Place_Id == id);
         }
+        public Place GetByName(string Name)
+        {
+            return _context.Places.FirstOrDefault(x => x.Place_Name == Name);
+        }
 
 
         public PlaceViewModel Get(int id)
