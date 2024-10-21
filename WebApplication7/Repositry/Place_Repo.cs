@@ -17,6 +17,11 @@ namespace WebApplication7.Repositry
             ans.RelatedPlaces = _context.Places.ToList();
             return ans;
         }
+        public List<Place> GetPlaces()
+        {
+            return _context.Places.ToList();
+        }
+
         public PlaceViewModel GetAllMuseum()
         {
             var ans=new PlaceViewModel();

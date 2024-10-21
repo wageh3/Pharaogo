@@ -6,7 +6,9 @@ namespace WebApplication7.Repositry.IRepositry
     public interface IPlace
 	{
         public PlaceViewModel GetAll();
-       public PlaceViewModel GetAllMuseum();
+        public List<Place> GetPlaces();
+
+        public PlaceViewModel GetAllMuseum();
         public PlaceViewModel GetAllHotels();
         public PlaceViewModel Get(int id); 
         public Place GetById(int id);

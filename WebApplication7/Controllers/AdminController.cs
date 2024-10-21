@@ -34,7 +34,7 @@ namespace DEPI.Controllers
 
         public IActionResult Index()
         {
-            var placesList = _placeRepository.GetAll();
+            var placesList = _placeRepository.GetPlaces();
             return View(placesList);
         }
 

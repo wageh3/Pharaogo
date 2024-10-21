@@ -1,4 +1,4 @@
-﻿@model WebApplication7.ViewModels.PlaceViewModel
+﻿@model List<Place>
 
 <div class="container mt-4">
 
@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             @{
-                foreach (var place in Model.RelatedPlaces.Where(p => p.Place_Type == "Museum"))
+                foreach (var place in Model.Where(p => p.Place_Type == "Museum"))
                 {
                     <tr>
                         <td>@place.Place_Id</td>
@@ -47,7 +47,7 @@
         </thead>
         <tbody>
             @{
-                foreach (var place in Model.RelatedPlaces.Where(p => p.Place_Type == "Hotel"))
+                foreach (var place in Model.Where(p => p.Place_Type == "Hotel"))
                 {
                     <tr>
                         <td>@place.Place_Id</td>
