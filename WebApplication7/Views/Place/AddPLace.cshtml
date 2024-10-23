@@ -60,12 +60,11 @@
         </div>
 
         <div class="mb-3">
-            <input type="file" asp-for="clientFile" onchange="loadFile(event)" class="form-control" id="formFile" multiple />
+            <input type="file" asp-for="clientFile" onchange="loadFile(event)" class="form-control" id="imageInput" multiple />
         </div>
 
-        <div class="col-md-4 mt-2">
-            <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 200px; margin-top: 10px; display: none;" />
-        </div>
+        <!-- Container for the image previews -->
+        <div id="imagePreviewContainer" class="col-md-4 mt-2"></div>
 
         <br />
         <button type="submit" class="btn btn-primary">Save</button>
@@ -77,48 +76,43 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-        const imageInput = document.getElementById("imageInput");
-        const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+        function loadFile(event) {
+            const imageInput = document.getElementById("imageInput");
+            const imagePreviewContainer = document.getElementById("imagePreviewContainer");
 
+            // Clear any previous image previews
+            imagePreviewContainer.innerHTML = '';
 
-        imageInput.addEventListener("change", () => {
             const files = imageInput.files;
-
-            // Clear previous previews
 
             if (files.length > 0) {
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
-                    debugger
+                    const reader = new FileReader();
 
-                    if (file) {
-                        const reader = new FileReader();
+                    reader.onload = function (e) {
+                        // Create a div for each image
+                        const imgContainer = document.createElement("div");
+                        imgContainer.style.marginBottom = "10px";
 
-                        reader.onload = function (e) {
-                            // Create a div for each image
-                            const imgContainer = document.createElement("div");
-                            imgContainer.style.marginBottom = "10px";
+                        // Create an img element for each file
+                        const imgElement = document.createElement("img");
+                        imgElement.src = e.target.result;
+                        imgElement.alt = "Selected Image";
+                        imgElement.style.maxWidth = "200px";
+                        imgElement.style.display = "block";
+                        imgElement.style.marginBottom = "10px";
 
-                            // Create an img element for each file
-                            const imgElement = document.createElement("img");
-                            imgElement.src = e.target.result;
-                            imgElement.alt = "Selected Image";
-                            imgElement.style.maxWidth
-                                = "200px";
-                            imgElement.style.display = "block";
-                            imgElement.style.marginBottom = "10px";
+                        // Append image to the container
+                        imgContainer.appendChild(imgElement);
+                        imagePreviewContainer.appendChild(imgContainer);
+                    };
 
-                            // Append image to the container
-                            imgContainer.appendChild(imgElement);
-                            imagePreviewContainer.appendChild(imgContainer);
-                        };
-
-                        // Read the file as a data URL (base64 encoded)
-                        reader.readAsDataURL(file);
-                    }
+                    // Read the file as a data URL (base64 encoded)
+                    reader.readAsDataURL(file);
                 }
             }
-        });
+        }
     </script>
 }
 

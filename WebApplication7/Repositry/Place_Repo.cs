@@ -96,6 +96,7 @@ namespace WebApplication7.Repositry
                 existingPlace.Description = place.SpecificPlace.Description;
                 if (place.SpecificPlace.clientFile != null)
                 {
+                    existingPlace.dbimage = new List<byte[]>();
                     foreach (var file in place.SpecificPlace.clientFile)
                     {
                         using (var stream = new MemoryStream())
