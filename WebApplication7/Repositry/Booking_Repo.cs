@@ -42,8 +42,25 @@ namespace WebApplication7.Repositry
             {
                 return null;
             }
+            pp.TotalAmountAfterDiss = place.Place_Price;
+            pp.TotalAmount = place.Place_Price;
 
-            pp.TotalAmount = place.Place_Price * numberofguests;
+            if (!string.IsNullOrEmpty(PromotionCode))
+            {
+                var promo = dbContext.Promotions.FirstOrDefault(x => x.promotion_Code == PromotionCode);
+
+                if (promo != null)
+                {
+                    int temp = (promo.Discount_Amount * place.Place_Price) / 100;
+                    pp.TotalAmountAfterDiss = place.Place_Price-temp  ;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            pp.TotalAmountAfterDiss = pp.TotalAmountAfterDiss * numberofguests;
+            pp.TotalAmount=pp.TotalAmount* numberofguests;
             pp.PaymentCode = GeneratePaymentCode(); 
             pp.NumberOfGuests = numberofguests;
 
@@ -51,23 +68,14 @@ namespace WebApplication7.Repositry
             if (place.Place_Type == "Hotel")
             {
                 pp.TotalDayes = dayes;
+                pp.TotalAmountAfterDiss = pp.TotalAmountAfterDiss * dayes;
                 pp.TotalAmount = pp.TotalAmount * dayes;
             }
 
-            pp.TotalAmountAfterDiss = pp.TotalAmount;
+            
 
             if (string.IsNullOrEmpty(PromotionCode))
                 return pp;
-            if (!string.IsNullOrEmpty(PromotionCode))
-            {
-                var promo = dbContext.Promotions.FirstOrDefault(x => x.promotion_Code == PromotionCode);
-
-                if (promo != null)
-                {
-                    pp.TotalAmountAfterDiss = (place.Place_Price - (promo.Discount_Amount * place.Place_Price) / 100) ;
-                }
-            }
-
             return pp;
         }
         private string GeneratePaymentCode()

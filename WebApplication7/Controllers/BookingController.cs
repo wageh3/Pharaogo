@@ -58,7 +58,7 @@ public class BookingController : Controller
 
    
 [HttpGet]
-    public IActionResult Payment(int id, int numberofguests, int dayes, string? PromotionCode)
+    public IActionResult Payment( int numberofguests, BookingViewModel? model,int id)
     {
         if (!User.Identity.IsAuthenticated)
         {
@@ -66,17 +66,21 @@ public class BookingController : Controller
             return RedirectToAction("Login", "Account");
         }
 
-        var paymentViewModel = _bookingRepository.Payment(id, numberofguests, dayes, PromotionCode);
+        var paymentViewModel = _bookingRepository.Payment(id,numberofguests,model.dayes, model.PromotionCode);
         var placeviewmodel = _placeRepository.Get(id);
 
-        if (paymentViewModel == null)
+        if (placeviewmodel == null)
         {
             return NotFound("Place not found");
+        }
+        if (paymentViewModel == null)
+        {
+            ModelState.AddModelError("PromotionCode", "Promotion Code is not valid ");
         }
 
         if (ModelState.IsValid)
         {
-            BookingViewModel model = new BookingViewModel();
+            
             // Ensure CheckOutDate is after CheckInDate
             if (model.CheckOutDate >= model.CheckInDate)
             {
@@ -85,7 +89,7 @@ public class BookingController : Controller
                 model.numberofdayes = difference.Days;
 
                 // You can now use model.NumberOfDays or pass it to a view
-                if (model.numberofdayes != dayes)
+                if (model.numberofdayes != model.dayes)
                 {
                     ModelState.AddModelError("dayes", "Number of dayes convenient ");
 

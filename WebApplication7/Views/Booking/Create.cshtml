@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <form asp-action="Payment" asp-route-id="@Model.PlaceID" asp-route-numberOfGuests="@Model.NumberOfGuests" asp-route-dayes="@Model.dayes" asp-route-PromotionCode="@Model.PromotionCode" method="get" class="mt-4">
+    <form asp-action="Payment" asp-route-numberofguests="numberofguests" asp-route-model="@Model" asp-route-id="@Model.PlaceID" method="get" class="mt-4">
         @if (Model.PlaceType == "Hotel")
         {
             <div class="row booking-form-row">
