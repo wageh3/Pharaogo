@@ -13,7 +13,6 @@
             @for (int i = 1; i <= 5; i++)
             {
                 int temp;
-
                 if (int.TryParse(@Model.SpecificPlace.Place_Rating, out temp))
                 {
                     temp = Convert.ToInt32(@Model.SpecificPlace.Place_Rating);
@@ -32,7 +31,6 @@
                 }
                 else
                 {
-                    <!-- Empty star for numbers beyond the rating -->
                     <span class="empty-star">&#9734;</span>
                 }
             }
@@ -42,18 +40,16 @@
         <p>@Model.SpecificPlace.Place_Price EGP</p>
         <a href="/Booking/Create/@Model.SpecificPlace.Place_Id" class="btn-primary">Book Now</a>
     </div>
+
     <div class="image-container">
-        @if (Model.SpecificPlace.imageSrc == null || Model.SpecificPlace.imageSrc[0] == "")
-        {
-            <img src="\Images\no-image-found.jpg" alt="No Image Available" />
-        }
-        else
-        {
-            <img src="@Model.SpecificPlace.imageSrc[0]" alt="Place Image" />
-        }
+        <div class="image-gallery">
+            @foreach (var image in Model.SpecificPlace.imageSrc)
+            {
+                <img src="@image" alt="Place Image" class="gallery-image" />
+            }
+        </div>
     </div>
 </div>
-
 
 <div class="rating-box">
     <h2>Rate this Place</h2>
@@ -80,17 +76,12 @@
     <p class="rating-output" hidden>Current Rating: <span id="current-rating">0</span></p>
 </div>
 
-
-
-<link href="/wwwroot/css/Review.css" rel="stylesheet">
-
 <h3 class="reviews-title">People Reviews</h3>
 <div class="reviews-container" id="review">
     @foreach (var item in Model.review)
     {
         <div class="review-item">
             <p class="" style="font:bold">@item.UserName</p>
-
             <p class="review-comment">@item.Comment</p>
             @if (User.IsInRole("Admin"))
             {
@@ -102,19 +93,15 @@
 
 @if (User.Identity.IsAuthenticated == true)
 {
-
     <form asp-action="AddReview" asp-route-PlaceId="@Model.SpecificPlace.Place_Id" asp-route-Review="@Model.Review" class="review-form">
         <div class="form-group">
             <textarea asp-for="Review" class="form-control review-textarea"></textarea>
         </div>
         <button type="submit" class="btn-primary">Send Review</button>
     </form>
-
 }
 
-
-
-<h3>Places You Might like</h3>
+<h3>Places You Might Like</h3>
 <partial name="_PlacesPartial" model="Model"></partial>
 <script>
     const ratingForm = document.querySelector('.rating-form');
