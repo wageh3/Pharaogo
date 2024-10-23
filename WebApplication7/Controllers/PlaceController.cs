@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebApplication7.Models;
 using WebApplication7.Repositry.IRepositry;
 using WebApplication7.ViewModels;
@@ -42,19 +43,12 @@ namespace WebApplication7.Controllers
         public IActionResult SavePlace(Place place)
         {
             var newplace = _placeRepository.GetByName(place.Place_Name);
-            if ( newplace!=null && newplace.Place_Type==place.Place_Type)
+            if (newplace != null && newplace.Place_Type == place.Place_Type)
             {
                 ModelState.AddModelError("Place_Name", "This Place is Already Exist");
             }
             if (ModelState.IsValid)
             {
-                if (place.clientFile != null)
-                {
-                    MemoryStream stream = new MemoryStream();
-                    place.clientFile.CopyTo(stream);
-                    place.dbimage = stream.ToArray();
-                }
-
                 _placeRepository.Add(place);
                 return RedirectToAction(nameof(Index));
             }

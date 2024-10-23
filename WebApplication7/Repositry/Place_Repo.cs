@@ -13,7 +13,7 @@ namespace WebApplication7.Repositry
         }
         public PlaceViewModel GetAll()
         {
-            var ans= new PlaceViewModel();
+            var ans = new PlaceViewModel();
             ans.RelatedPlaces = _context.Places.ToList();
             return ans;
         }
@@ -24,13 +24,14 @@ namespace WebApplication7.Repositry
 
         public PlaceViewModel GetAllMuseum()
         {
-            var ans=new PlaceViewModel();
-            ans.RelatedPlaces=_context.Places.Where(x=>x.Place_Type=="Museum").ToList();
+            var ans = new PlaceViewModel();
+            ans.RelatedPlaces = _context.Places.Where(x => x.Place_Type == "Museum").ToList();
             return ans;
-        } public PlaceViewModel GetAllHotels()
+        }
+        public PlaceViewModel GetAllHotels()
         {
-            var ans=new PlaceViewModel();
-            ans.RelatedPlaces=_context.Places.Where(x=>x.Place_Type=="Hotel").ToList();
+            var ans = new PlaceViewModel();
+            ans.RelatedPlaces = _context.Places.Where(x => x.Place_Type == "Hotel").ToList();
             return ans;
         }
         public Place GetById(int id)
@@ -58,8 +59,19 @@ namespace WebApplication7.Repositry
 
         public void Add(Place place)
         {
+            if (place.clientFile != null)
+            {
+                foreach (var file in place.clientFile)
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        file.CopyTo(stream);
+                        place.dbimage.Add(stream.ToArray());
+                    }
+                }
+            }
             _context.Places.Add(place);
-             Save();
+            Save();
         }
         public void updaterate(Place place, int rating)
         {
@@ -84,9 +96,14 @@ namespace WebApplication7.Repositry
                 existingPlace.Description = place.SpecificPlace.Description;
                 if (place.SpecificPlace.clientFile != null)
                 {
-                    MemoryStream stream = new MemoryStream();
-                    place.SpecificPlace.clientFile.CopyTo(stream);
-                    existingPlace.dbimage = stream.ToArray();
+                    foreach (var file in place.SpecificPlace.clientFile)
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            file.CopyTo(stream);
+                            existingPlace.dbimage.Add(stream.ToArray());
+                        }
+                    }
                 }
                 else
                 {

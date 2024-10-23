@@ -60,12 +60,11 @@
         </div>
 
         <div class="mb-3">
-            <input type="file" asp-for="clientFile" onchange="loadFile(event)" class="form-control" id="formFile" />
-            <img id="myImg" height="50px" />
+            <input type="file" asp-for="clientFile" onchange="loadFile(event)" class="form-control" id="formFile" multiple />
         </div>
 
         <div class="col-md-4 mt-2">
-            <img id="output" width="100%" />
+            <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 200px; margin-top: 10px; display: none;" />
         </div>
 
         <br />
@@ -78,14 +77,48 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-        var loadFile = function (event) {
-            var reader = new FileReader();
-            reader.onload = function () {
-                var myImg = document.getElementById('myImg');
-                myImg.src = reader.result;
+        const imageInput = document.getElementById("imageInput");
+        const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+
+
+        imageInput.addEventListener("change", () => {
+            const files = imageInput.files;
+
+            // Clear previous previews
+
+            if (files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    debugger
+
+                    if (file) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            // Create a div for each image
+                            const imgContainer = document.createElement("div");
+                            imgContainer.style.marginBottom = "10px";
+
+                            // Create an img element for each file
+                            const imgElement = document.createElement("img");
+                            imgElement.src = e.target.result;
+                            imgElement.alt = "Selected Image";
+                            imgElement.style.maxWidth
+                                = "200px";
+                            imgElement.style.display = "block";
+                            imgElement.style.marginBottom = "10px";
+
+                            // Append image to the container
+                            imgContainer.appendChild(imgElement);
+                            imagePreviewContainer.appendChild(imgContainer);
+                        };
+
+                        // Read the file as a data URL (base64 encoded)
+                        reader.readAsDataURL(file);
+                    }
+                }
             }
-            reader.readAsDataURL(event.target.files[0]);
-        }
+        });
     </script>
 }
 

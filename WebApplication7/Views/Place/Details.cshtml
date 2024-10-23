@@ -13,13 +13,16 @@
         </div>
     </div>
     <div class="image-container">
-        @if (Model.SpecificPlace.imageSrc == null || Model.SpecificPlace.imageSrc == "")
+        @if (Model.SpecificPlace.imageSrc == null || Model.SpecificPlace.imageSrc[0] == "")
         {
             <img src="\Images\no-image-found.jpg" alt="NOImage" />
         }
         else
         {
-            <img src="@Model.SpecificPlace.imageSrc" alt="NOImage" />
+            foreach (var image in Model.SpecificPlace.imageSrc)
+            {
+                <img src="@image" alt="NOImage" />
+            }
         }
     </div>
 </div>

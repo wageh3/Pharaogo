@@ -24,13 +24,13 @@
                 <a asp-action="GetPlace" asp-controller="Home" asp-route-id="@item.Place_Id">
                     <form>
                         <div class="hotel-card">
-                            @if (item.imageSrc == null || item.imageSrc == "")
+                            @if (item.imageSrc == null || item.imageSrc[0] == "")
                             {
                                 <img src="\Images\no-image-found.jpg" alt="NOImage" />
                             }
                             else
                             {
-                                <img src="@item.imageSrc" alt="Place Image" />
+                                <img src="@item.imageSrc[0]" alt="Place Image" />
                             }
                             <div class="hotel-info">
                                 <h3>@item.Place_Name</h3>
@@ -67,7 +67,7 @@
                                     }
                                     <span class="rating-number">(@item.Place_Rating)</span>
                                 </div>
-                               
+
                                 <p><span class="new-price">Price: @item.Place_Price EGP</span></p>
                             </div>
                         </div>
@@ -77,33 +77,33 @@
         }
 
     }
-    
-  <style>
-    .star-rating {
-        justify-content: center;
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
 
-    .full-star, .empty-star, .half-star {
-        font-size: 1.5rem;
-        color: gold;
-    }
+    <style>
+        .star-rating {
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
 
-    .half-star {
-        color: lightgray;
-    }
+        .full-star, .empty-star, .half-star {
+            font-size: 1.5rem;
+            color: gold;
+        }
 
-    .rating-number {
-        margin-left: 8px;
-        font-size: 1rem;
-        color: #333;
-    }
-</style>
+        .half-star {
+            color: lightgray;
+        }
+
+        .rating-number {
+            margin-left: 8px;
+            font-size: 1rem;
+            color: #333;
+        }
+    </style>
     <script>
         function favoritePlace(placeId) {
             window.location.href = '/Home/Deletewish/' + placeId;
-            }
+        }
     </script>
 </section>

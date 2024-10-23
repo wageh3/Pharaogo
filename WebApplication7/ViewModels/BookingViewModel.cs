@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication7.ViewModels
 {
@@ -7,22 +8,27 @@ namespace WebApplication7.ViewModels
         public int? dayes { get; set; }
 
         public int PlaceID { get; set; }  // Place ID (can be optional)
-        public string PlaceType { get; set; } 
+        public string PlaceType { get; set; }
         public string PlaceName { get; set; } = "Default Place";  // Default place name if no place is selected
-        public byte[]? dbimage { get; set; }
-        public string? imageSrc
+        public List<byte[]>? dbimage { get; set; }
+        public List<string>? imageSrc
         {
             get
             {
-                if (dbimage != null)
+                if (dbimage == null || dbimage.Count == 0)
                 {
-                    string base64String = Convert.ToBase64String(dbimage, 0, dbimage.Length);
-                    return "data:image/jpg;base64," + base64String;
+                    return null;
                 }
-                else
+                List<string> base64Images = new List<string>();
+                foreach (var db in dbimage)
                 {
-                    return string.Empty;
+                    if (db != null)
+                    {
+                        string base64String = Convert.ToBase64String(db, 0, db.Length);
+                        base64Images.Add("data:image/jpg;base64," + base64String);
+                    }
                 }
+                return base64Images;
             }
         }
         public string Description { get; set; } = "No specific place selected. Please select a place.";

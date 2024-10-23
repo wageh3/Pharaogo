@@ -38,18 +38,18 @@
             }
             <span class="rating-number">(@Model.SpecificPlace.Place_Rating)</span>
         </div>
-   
+
         <p>@Model.SpecificPlace.Place_Price EGP</p>
         <a href="/Booking/Create/@Model.SpecificPlace.Place_Id" class="btn-primary">Book Now</a>
     </div>
     <div class="image-container">
-        @if (Model.SpecificPlace.imageSrc == null || Model.SpecificPlace.imageSrc == "")
+        @if (Model.SpecificPlace.imageSrc == null || Model.SpecificPlace.imageSrc[0] == "")
         {
             <img src="\Images\no-image-found.jpg" alt="No Image Available" />
         }
         else
         {
-            <img src="@Model.SpecificPlace.imageSrc" alt="Place Image" />
+            <img src="@Model.SpecificPlace.imageSrc[0]" alt="Place Image" />
         }
     </div>
 </div>
@@ -90,7 +90,7 @@
     {
         <div class="review-item">
             <p class="" style="font:bold">@item.UserName</p>
-            
+
             <p class="review-comment">@item.Comment</p>
             @if (User.IsInRole("Admin"))
             {

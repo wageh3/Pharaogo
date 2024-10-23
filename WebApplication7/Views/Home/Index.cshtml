@@ -2,18 +2,18 @@
 @using WebApplication7.Repositry.IRepositry;
 @model WebApplication7.ViewModels.PlaceViewModel
 @{
-	ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
 <!doctype html>
 <link href="/css/Index.css" rel="stylesheet" />
-<body >
+<body>
     <section class="hero">
-        <video autoplay muted loop playsinline >
+        <video autoplay muted loop playsinline>
             <source src="/Videos/Let s Go - Egypt A Beautiful Destinations Original.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div class="overlay" >
-            <div class="content" >
+        <div class="overlay">
+            <div class="content">
                 @if (TempData["SuccessMessage"] != null)
                 {
                     <div class="alert alert-success">
@@ -41,7 +41,7 @@
                         <a href="/Account/Register">
                             <button class="signup">Sign up</button>
                         </a>
-                       
+
                     }
                 </div>
 
@@ -49,25 +49,25 @@
         </div>
     </section>
     <nav class="footer-nav">
-        
-        
-            <a href="#" onclick="GetData('Hotels')" class="nav-item">
-                <span class="nav-icon">
-                    <img src="/Images/hotel.png" alt="Alternate Text" style="width: 24px; height: 24px; object-fit: contain; display: inline-block; " />
-                </span>
-                <span class="nav-label1">Hotels</span>
-            </a>
+
+
+        <a href="#" onclick="GetData('Hotels')" class="nav-item">
+            <span class="nav-icon">
+                <img src="/Images/hotel.png" alt="Alternate Text" style="width: 24px; height: 24px; object-fit: contain; display: inline-block; " />
+            </span>
+            <span class="nav-label1">Hotels</span>
+        </a>
         <a href="#" onclick="GetData('Museums')" class="nav-item">
-                <span class="nav-icon"><img src="/Images/icons8-pharaoh-60.png" alt="Alternate Text" style="width: 24px; height: 24px; object-fit: contain; display: inline-block; " /></span>
+            <span class="nav-icon"><img src="/Images/icons8-pharaoh-60.png" alt="Alternate Text" style="width: 24px; height: 24px; object-fit: contain; display: inline-block; " /></span>
             <span class="nav-label1">Museum</span>
         </a>
-        
-        
+
+
 
     </nav>
 
     @* <section class="hotel-listings "> *@
-     <div id="PlaceDetails">
+    <div id="PlaceDetails">
         <section class="hotel-listings ">
 
             @foreach (var item in Model.RelatedPlaces)
@@ -85,55 +85,55 @@
                                 </button>
                             </div>
                         }
-                        
+
                     }
                     <!-- The large clickable card -->
                     <a asp-action="GetPlace" asp-controller="Home" asp-route-id="@item.Place_Id">
                         <form>
                             <div class="hotel-card">
-                                @if (item.imageSrc == null || item.imageSrc == "")
+                                @if (item.imageSrc == null || item.imageSrc[0] == "")
                                 {
                                     <img src="\Images\no-image-found.jpg" alt="NOImage" />
                                 }
                                 else
                                 {
-                                    <img src="@item.imageSrc" alt="Place Image" />
+                                    <img src="@item.imageSrc[0]" alt="Place Image" />
                                 }
                                 <div class="hotel-info">
                                     <h3>@item.Place_Name</h3>
                                     <div class="star-rating">
                                         @for (int i = 1; i <= 5; i++)
                                         {
-                                            
-                                                int temp ;
-                                                
-                                                if (int.TryParse(item.Place_Rating, out temp))
-                                                {
-                                                    // Parsing successful, use temp
-                                                    temp = Convert.ToInt32(item.Place_Rating);
-                                                }
-                                                else
-                                                {
-                                                    // Handle invalid format case
-                                                    temp = 0;
-                                                }
-                                                if (i <= (temp))
-                                                {
-                                                    <!-- Full star for each whole number -->
-                                                    <span class="full-star">&#9733;</span>
-                                                }
-                                                else if (i - 1 < temp && temp < i)
-                                                {
-                                                    <!-- Half star for fractional ratings (if any) -->
-                                                    <span class="half-star">&#9734;</span>
-                                                }
-                                                else
-                                                {
-                                                    <!-- Empty star for numbers beyond the rating -->
-                                                    <span class="empty-star">&#9734;</span>
-                                                }
+
+                                            int temp;
+
+                                            if (int.TryParse(item.Place_Rating, out temp))
+                                            {
+                                                // Parsing successful, use temp
+                                                temp = Convert.ToInt32(item.Place_Rating);
                                             }
-                                        
+                                            else
+                                            {
+                                                // Handle invalid format case
+                                                temp = 0;
+                                            }
+                                            if (i <= (temp))
+                                            {
+                                                <!-- Full star for each whole number -->
+                                                <span class="full-star">&#9733;</span>
+                                            }
+                                            else if (i - 1 < temp && temp < i)
+                                            {
+                                                <!-- Half star for fractional ratings (if any) -->
+                                                <span class="half-star">&#9734;</span>
+                                            }
+                                            else
+                                            {
+                                                <!-- Empty star for numbers beyond the rating -->
+                                                <span class="empty-star">&#9734;</span>
+                                            }
+                                        }
+
                                         <span class="rating-number">(@item.Place_Rating)</span>
                                     </div>
                                     <p><span class="new-price">Price: @item.Place_Price EGP</span></p>
@@ -143,10 +143,10 @@
                     </a>
                 </div>
             }
-        
+
         </section>
 
-     </div>
+    </div>
     <style>
         .star-rating {
             justify-content: center;
@@ -173,14 +173,14 @@
 </body>
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-       
+
     <script>
         function GetData(name) {
             event.preventDefault();
             $.ajax({
-                url: "/Home/" + name, 
-                success: function (result) { 
-                    
+                url: "/Home/" + name,
+                success: function (result) {
+
                     document.getElementById("PlaceDetails").innerHTML = result;
                 },
                 error: function (xhr, status, error) {
@@ -191,7 +191,7 @@
         window.onload = function () {
             GetData('_PlacesPartial');
         };
-     
+
     </script>
     @if (Model.Message != null)
     {
