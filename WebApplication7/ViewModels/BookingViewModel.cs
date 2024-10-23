@@ -40,7 +40,7 @@ namespace WebApplication7.ViewModels
         [Required]
         [Display(Name = "Check-out Date")]
         public DateTime CheckOutDate { get; set; } = DateTime.Now.AddDays(1);
-
+        public int numberofdayes {  get; set; }
         [Required]
         [Display(Name = "Number of Guests")]
         public int NumberOfGuests { get; set; } = 1;

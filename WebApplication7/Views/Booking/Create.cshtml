@@ -1,4 +1,5 @@
-﻿@model WebApplication7.ViewModels.BookingViewModel
+﻿@using Microsoft.IdentityModel.Tokens
+@model WebApplication7.ViewModels.BookingViewModel
 <link href="~/css/BookingCreate.css" rel="stylesheet" />
 <div class="container2">
     <h2 class="text-center mb-4">@Model.PlaceName</h2>
@@ -25,6 +26,15 @@
             <div class="form-group">
                 <label asp-for="dayes" class="control-label"></label>
                 <input asp-for="dayes" type="number" class="form-control" min="1" required />
+                <span asp-validation-for="dayes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckInDate" class="control-label"></label>
+                <input asp-for="CheckInDate" type="date" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label asp-for="CheckOutDate" class="control-label"></label>
+                <input asp-for="CheckOutDate" type="date" class="form-control" required />
             </div>
         }
 

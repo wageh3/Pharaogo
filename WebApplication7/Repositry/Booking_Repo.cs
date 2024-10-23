@@ -56,7 +56,8 @@ namespace WebApplication7.Repositry
 
             pp.TotalAmountAfterDiss = pp.TotalAmount;
 
-            
+            if (string.IsNullOrEmpty(PromotionCode))
+                return pp;
             if (!string.IsNullOrEmpty(PromotionCode))
             {
                 var promo = dbContext.Promotions.FirstOrDefault(x => x.promotion_Code == PromotionCode);

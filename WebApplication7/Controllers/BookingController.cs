@@ -58,7 +58,7 @@ public class BookingController : Controller
 
    
 [HttpGet]
-    public IActionResult Payment(int id, int numberofguests, int dayes, string PromotionCode)
+    public IActionResult Payment(int id, int numberofguests, int dayes, string? PromotionCode)
     {
         if (!User.Identity.IsAuthenticated)
         {
@@ -74,6 +74,30 @@ public class BookingController : Controller
             return NotFound("Place not found");
         }
 
+        if (ModelState.IsValid)
+        {
+            BookingViewModel model = new BookingViewModel();
+            // Ensure CheckOutDate is after CheckInDate
+            if (model.CheckOutDate >= model.CheckInDate)
+            {
+                // Calculate the difference in days
+                TimeSpan difference = model.CheckOutDate - model.CheckInDate;
+                model.numberofdayes = difference.Days;
+
+                // You can now use model.NumberOfDays or pass it to a view
+                if (model.numberofdayes != dayes)
+                {
+                    ModelState.AddModelError("dayes", "Number of dayes convenient ");
+
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("CheckOutDate", "CheckOutDate must be after CheckInDate.");
+                ModelState.AddModelError("CheckInOutDate", "CheckOutDate must be after CheckInDate.");
+            }
+
+        }
         if (!ModelState.IsValid)
         {
             BookingViewModel bookingViewModel = new BookingViewModel
@@ -85,7 +109,7 @@ public class BookingController : Controller
                 TotalAmount = placeviewmodel.SpecificPlace.Place_Price,
                 PlaceType = placeviewmodel.SpecificPlace.Place_Type,
             };
-
+            
             return View("Create", bookingViewModel);
         }
 
@@ -98,6 +122,11 @@ public class BookingController : Controller
     {
         return View("Success", TotalAmountAfterDiss);
     }
+    [HttpPost]
+    public IActionResult CalculateDays(BookingViewModel model)
+    {
+       
+        return View(model);
+    }
 
-    
 }

@@ -29,35 +29,40 @@ namespace WebApplication7.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel Userrvm)
         {
-
             if (ModelState.IsValid)
             {
                 // Check if the email already exists
-                var existingUser = await _userManager.FindByEmailAsync(Userrvm.Email);
-                if (existingUser != null)
+                var existingUserByEmail = await _userManager.FindByEmailAsync(Userrvm.Email);
+                if (existingUserByEmail != null)
                 {
                     ModelState.AddModelError("Email", "Email is already taken.");
                     return View(Userrvm);
                 }
-                User userModel = new User();
-                userModel.UserName = Userrvm.UserName;
-                userModel.PasswordHash = Userrvm.Password;
-                userModel.Email = Userrvm.Email;
-                //if (Userrvm.Image != null)
-                //{
-                //	var unfile = ImageSaver.SaveImage(Userrvm.Image, _webHostEnvironment);
-                //	userModel.ImageUrl = unfile.Result;
 
+                // Check if the username already exists
+                var existingUserByUsername = await _userManager.FindByNameAsync(Userrvm.UserName);
+                if (existingUserByUsername != null)
+                {
+                    ModelState.AddModelError("UserName", "Username is already taken.");
+                    return View(Userrvm);
+                }
 
-                //}
+                // Create a new user
+                User userModel = new User
+                {
+                    UserName = Userrvm.UserName,
+                    Email = Userrvm.Email
+                };
+
+                // Create the user in the system
                 IdentityResult result = await _userManager.CreateAsync(userModel, Userrvm.Password);
 
-                if (result.Succeeded == true)
+                if (result.Succeeded)
                 {
+                    // Assign role based on email
                     if (Userrvm.Email == "admiin@gmail.com")
                     {
                         await _userManager.AddToRoleAsync(userModel, "Admin");
@@ -67,25 +72,25 @@ namespace WebApplication7.Controllers
                         await _userManager.AddToRoleAsync(userModel, "Visitor");
                     }
 
-
-                    //Create Cookie
-
+                    // Sign the user in
                     await signInManager.SignInAsync(userModel, isPersistent: false);
 
-
                     return RedirectToAction("Index", "Home");
-
                 }
                 else
                 {
-                    foreach (var item in result.Errors)
+                    // Handle errors in user creation
+                    foreach (var error in result.Errors)
                     {
-                        ModelState.AddModelError("", item.Description);
+                        ModelState.AddModelError("", error.Description);
                     }
                 }
             }
+
+            // If validation fails, return the view with the model data
             return View(Userrvm);
         }
+
         [HttpGet]
 
         public IActionResult Login()
