@@ -41,14 +41,21 @@
         <a href="/Booking/Create/@Model.SpecificPlace.Place_Id" class="btn-primary">Book Now</a>
     </div>
 
-    <div class="image-container">
-        <div class="image-gallery">
+   <div class="image-container">
+   <div class="image-gallery">
+        @if (Model.SpecificPlace.imageSrc == null)
+        {
+            <img src="/Images/no-image-found.jpg" alt="No Image Available" />
+        }
+        else
+        {
             @foreach (var image in Model.SpecificPlace.imageSrc)
             {
                 <img src="@image" alt="Place Image" class="gallery-image" />
             }
-        </div>
+        }
     </div>
+</div>
 </div>
 
 <div class="rating-box">
