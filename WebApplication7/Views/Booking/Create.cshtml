@@ -38,6 +38,16 @@
                 </div>
             </div>
         }
+        @if (Model.PlaceType != "Hotel")
+        {
+            <div class="row booking-form-row">
+            <div class="col-md-4 booking-form-group">
+                <label asp-for="AvilableDate" class="control-label"></label>
+                <input asp-for="AvilableDate" type="date" class="form-control booking-input" required />
+            </div>
+            </div>
+        }
+
 
         <div class="row booking-form-row">
             <div class="col-md-4 booking-form-group">

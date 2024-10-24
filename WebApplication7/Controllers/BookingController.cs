@@ -80,9 +80,13 @@ public class BookingController : Controller
 
         if (ModelState.IsValid)
         {
-            
+
             if (placeviewmodel.SpecificPlace.Place_Type != "Hotel")
+            {
+
+
                 return View(paymentViewModel);
+            }
 
 
             // Ensure CheckOutDate is after CheckInDate

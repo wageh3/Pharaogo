@@ -11,6 +11,7 @@ namespace WebApplication7.ViewModels
         public string? PlaceType { get; set; }
         public string PlaceName { get; set; } = "Default Place";  // Default place name if no place is selected
         public List<byte[]>? dbimage { get; set; }
+
         public List<string>? imageSrc
         {
             get
@@ -36,6 +37,8 @@ namespace WebApplication7.ViewModels
         [Required]
         [Display(Name = "Check-in Date")]
         public DateTime CheckInDate { get; set; } = DateTime.Now;
+        public DateTime AvilableDate { get; set; } = DateTime.Now;
+
 
         [Required]
         [Display(Name = "Check-out Date")]

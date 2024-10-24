@@ -51,7 +51,7 @@
 
 /* Rating Box */
 .rating-box {
-    background: linear-gradient(135deg, #f7f7f7, #e2e2e2);
+/*    background: linear-gradient(135deg, #f7f7f7, #e2e2e2);*/
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
